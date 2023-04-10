@@ -8,35 +8,54 @@
     text-decoration: none;
     background-color: rgb(248, 248, 241);
 }
-
-.navbar_title_container{
-    margin-top: 1rem;
+.navbar_title_container {
     display: flex;
     justify-content: center;
     letter-spacing: 0.3rem;
 }
-.navbar_container{
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-}
-.mid_section{
-    display: flex;
-}
 .category_text{
-    padding-left: 1rem;
-    padding-right: 1rem;
     font-size: 1rem;
     color: rgb(119, 118, 118);
 }
-.category_text:hover{
+.category_text:hover {
     color: black;
     cursor: pointer;
 }
-.last_section{
-    display: flex;
+
+
+
+
+/*-----Footer-----*/
+.footer_container{
+    text-align: center;
     position: absolute;
-    right: 0;
-    background-color: blueviolet;
+    bottom: 0;
+}
+.categories_span_title{
+    font-size: 1.3rem;
+    font-weight:400;
+    display: block;
+    position: relative;
+    text-align:left;
+}
+.categories_span{
+    display: block;
+    position: relative;
+    text-align:left;
+    font-size: 1rem;
+    color: rgb(119, 118, 118);
+}
+.categories_span:hover{
+    cursor: pointer;
+}
+.about_para {
+    display: block;
+    position: relative;
+    text-align: justify;
+    font-size: 1rem;
+    color: rgb(119, 118, 118);
+    line-height: 1.3rem;
+}
+.footer_payment_logos{
+    width: 30rem;
 }
