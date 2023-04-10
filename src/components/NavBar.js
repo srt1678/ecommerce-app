@@ -20,7 +20,6 @@ export const NavBar = () => {
                         <Nav.Link as={Link} to="/product" className='category_text pe-3'>Men</Nav.Link>
                         <Nav.Link as={Link} to="/product" className='category_text pe-3'>Jewelery</Nav.Link>
                         <Nav.Link as={Link} to="/" className='category_text'>Electronics</Nav.Link>
-                        
                     </Nav>
                 </Container>
             </Navbar>
