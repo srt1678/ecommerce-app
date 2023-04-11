@@ -1,0 +1,13 @@
+.featured_para{
+    color: gray;
+    font-size: 1rem;
+}
+@media screen and (max-width: 768px) {
+    .featured_col{
+        display: flex;
+        justify-content: center;
+    }
+    .featured_para{
+        margin: 0px 1rem;
+    }
+}

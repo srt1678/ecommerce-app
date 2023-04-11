@@ -1,0 +1,13 @@
+.navbar_title_container {
+    display: flex;
+    justify-content: center;
+    letter-spacing: 0.3rem;
+}
+.category_text{
+    font-size: 1rem;
+    color: rgb(119, 118, 118);
+}
+.category_text:hover {
+    color: black;
+    cursor: pointer;
+}

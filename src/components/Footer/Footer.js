@@ -2,7 +2,8 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import footerImg from './img/paymentLogo.png'
+import footerImg from '../img/paymentLogo.png'
+import './Footer.css'
 
 export const Footer = () => {
     return (
