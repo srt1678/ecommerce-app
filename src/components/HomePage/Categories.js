@@ -10,10 +10,15 @@ import category3 from "../img/category3.jpg";
 import category4 from "../img/category4.jpg";
 import category5 from "../img/category5.jpg";
 import category6 from "../img/category6.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Categories = () => {
+    const navigate = useNavigate();
+    const handleButton = (category) => {
+        navigate(`/product`);
+    };
     return (
-        <div className="categories mx-5">
+        <div className="categories mx-5 pb-3">
             <Container fluid>
                 <Row>
                     <Col sm>
@@ -28,6 +33,7 @@ const Categories = () => {
                                     <Button
                                         className="category_button"
                                         variant="outline-light"
+                                        onClick={() => handleButton('women')}
                                     >
                                         WOMEN
                                     </Button>
@@ -45,6 +51,7 @@ const Categories = () => {
                                     <Button
                                         className="category_button"
                                         variant="outline-light"
+                                        onClick={() => handleButton('shoes')}
                                     >
                                         SHOES
                                     </Button>
@@ -52,7 +59,7 @@ const Categories = () => {
                             </div>
                         </Row>
                     </Col>
-                    <Col sm={3} className="mx-2">
+                    <Col sm={3} className="col3">
                         <Row className="categories_box3">
                             <div className="categories_img_container px-0">
                                 <img
@@ -64,6 +71,7 @@ const Categories = () => {
                                     <Button
                                         className="category_button"
                                         variant="outline-light"
+                                        onClick={() => handleButton('sales')}
                                     >
                                         SALES
                                     </Button>
@@ -73,7 +81,7 @@ const Categories = () => {
                     </Col>
                     <Col sm={6}>
                         <Row>
-                            <Col className="categories_box4 me-2 px-0">
+                            <Col sm className="categories_box4 me-2 px-0">
                                 <img
                                     className="categories_img"
                                     src={category3}
@@ -83,12 +91,13 @@ const Categories = () => {
                                     <Button
                                         className="category_button"
                                         variant="outline-light"
+                                        onClick={() => handleButton('men')}
                                     >
                                         MEN
                                     </Button>
                                 </div>
                             </Col>
-                            <Col className="categories_box5 mb-2 px-0">
+                            <Col sm className="categories_box5 mb-2 px-0">
                                 <img
                                     className="categories_img px-0"
                                     src={category5}
@@ -98,6 +107,7 @@ const Categories = () => {
                                     <Button
                                         className="category_button"
                                         variant="outline-light"
+                                        onClick={() => handleButton('accessories')}
                                     >
                                         ACCESSORIES
                                     </Button>
@@ -114,6 +124,7 @@ const Categories = () => {
                                 <Button
                                     className="category_button"
                                     variant="outline-light"
+                                    onClick={() => handleButton('newSeasons')}
                                 >
                                     NEW SEASONS
                                 </Button>

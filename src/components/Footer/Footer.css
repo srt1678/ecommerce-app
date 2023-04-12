@@ -1,3 +1,9 @@
+.footer_div_container{
+    display: flex;
+    justify-content: center;
+    border-top: solid 1px rgb(199, 199, 197);
+    padding-top: 2rem;
+}
 .footer_container{
     text-align: center;
 }

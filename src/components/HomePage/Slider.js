@@ -46,7 +46,7 @@ const Slider = () => {
                                             className="carousel_button mt-2"
                                             variant="outline-light"
                                         >
-                                            SHOP {singleImage.labelButton}
+                                            SHOP {singleImage.labelButton}'S
                                         </Button>
                                     </div>
                                 </div>

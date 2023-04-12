@@ -7,7 +7,7 @@ import './Footer.css'
 
 export const Footer = () => {
     return (
-        <div style={{ display: "flex", justifyContent: "center"}}>
+        <div className='footer_div_container'>
             <Container className="footer_container">
                 <Row>
                     <Col xxl={3} sm={6} className='mb-2'>

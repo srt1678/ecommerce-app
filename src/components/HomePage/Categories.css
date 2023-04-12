@@ -8,23 +8,16 @@
 .categories_box3 {
     height: 100%;
 }
-.categories_box4 {
+.categories_box4,
+.categories_box5,
+.categories_box6,
+.categories_img_container {
     display: flex;
     position: relative;
 }
-.categories_box5 {
-    display: flex;
-    position: relative;
-}
-.categories_box6 {
-    display: flex;
-    position: relative;
-}
-.categories_box5 > .category_button_container > .category_button {
-    width: 15rem;
-}
-.categories_box6 > .category_button_container > .category_button {
-    width: 15rem;
+.col3{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 .categories_img {
     height: 100%;
@@ -32,10 +25,6 @@
     object-fit: cover;
 }
 
-.categories_img_container {
-    display: flex;
-    position: relative;
-}
 .category_button_container {
     z-index: 10;
     position: absolute;
@@ -52,4 +41,28 @@
     font-size: 2.5vh;
     font-weight: 500;
     width: 10rem;
+}
+.categories_box5 > .category_button_container > .category_button,
+.categories_box6 > .category_button_container > .category_button {
+    width: 15rem;
+}
+
+@media screen and (max-width: 578px) {
+    .categories_box1,
+    .categories_box2,
+    .categories_box3,
+    .categories_box4,
+    .categories_box5,
+    .categories_box6 {
+        height: 20rem;
+    }
+    .col3{
+        margin: 0.5rem 0px;
+    }
+    .categories_box4{
+        margin-bottom: 0.5rem;
+    }
+    .categories_box3 > .categories_img_container > .categories_img{
+        height: 20rem;
+    }
 }

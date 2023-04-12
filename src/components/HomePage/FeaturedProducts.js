@@ -59,8 +59,8 @@ const FeaturedProducts = ({ type }) => {
                 <Row>
                     {data.map((item) => {
                         return (
-                            <Col sm style={{display: 'flex', justifyContent: 'center'}}>
-                                <ProductCard item={item} key={item.id} />
+                            <Col sm style={{display: 'flex', justifyContent: 'center'}} key={item.id}>
+                                <ProductCard item={item} />
                             </Col>
                         );
                     })}
