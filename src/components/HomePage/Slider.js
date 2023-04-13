@@ -7,18 +7,23 @@ import slider3 from "../img/slider3.jpg";
 import slider4 from "../img/slider4.jpg";
 import slider5 from "../img/slider5.jpg";
 import slider6 from "../img/slider6.jpg";
+import { useNavigate } from "react-router-dom";
 import "./Slider.css";
 
 const imageData = [
-    { img: slider1, label: "FAKESHOP COLLECTIONS", labelButton: "WOMEN" },
-    { img: slider2, label: "FAKESHOP COLLECTIONS", labelButton: "MEN" },
-    { img: slider3, label: "NEW SEASONS", labelButton: "MEN" },
-    { img: slider4, label: "NEW SEASONS", labelButton: "WOMEN" },
-    { img: slider5, label: "SPECIAL OFFERS", labelButton: "MEN" },
-    { img: slider6, label: "SPECIAL OFFERS", labelButton: "WOMEN" },
+    { img: slider1, label: "FAKESHOP COLLECTIONS", labelButton: "WOMEN", category: 'women' },
+    { img: slider2, label: "FAKESHOP COLLECTIONS", labelButton: "MEN", category: 'men' },
+    { img: slider3, label: "NEW SEASONS", labelButton: "MEN", category: 'men' },
+    { img: slider4, label: "NEW SEASONS", labelButton: "WOMEN", category: 'women' },
+    { img: slider5, label: "SPECIAL OFFERS", labelButton: "MEN", category: 'men' },
+    { img: slider6, label: "SPECIAL OFFERS", labelButton: "WOMEN", category: 'women' },
 ];
 
 const Slider = () => {
+    const navigate = useNavigate();
+    const handleNav = (category) => {
+        navigate(`product/${category}`)
+    }
     return (
         <>
             <div style={{ position: "relative" }}>
@@ -45,6 +50,7 @@ const Slider = () => {
                                         <Button
                                             className="carousel_button mt-2"
                                             variant="outline-light"
+                                            onClick={() => handleNav(singleImage.category)}
                                         >
                                             SHOP {singleImage.labelButton}'S
                                         </Button>

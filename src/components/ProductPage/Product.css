@@ -1,0 +1,31 @@
+.left {
+    margin-left: 4rem;
+}
+.filterItem {
+    margin-bottom: 2rem;
+}
+.inputItem > label{
+    margin-bottom: 10px;
+    padding-left: 0.5rem;
+}
+.inputItem > span{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+@media screen and (max-width: 1400px) {
+    .left{
+        display: flex;
+        margin-left: 1rem;
+        justify-content: space-evenly;
+    }
+}
+@media screen and (max-width: 576px) {
+    .left{
+        display: flex;
+        flex-direction: column;
+    }
+    .filterItem{
+        display: flex;
+        justify-content: space-evenly;
+    }
+}
