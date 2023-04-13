@@ -1,7 +1,7 @@
 import React from "react";
 import Slider from "./Slider";
 import FeaturedProducts from "./FeaturedProducts";
-import Categories from "./Categories";
+import CategoriesBoxes from "./CategoriesBoxes";
 
 export const Home = () => {
     return (
@@ -9,7 +9,7 @@ export const Home = () => {
             <div className="home">
                 <Slider />
                 <FeaturedProducts type='Trending'/>
-                <Categories/>
+                <CategoriesBoxes/>
                 <FeaturedProducts type='Featured'/>
             </div>
         </>

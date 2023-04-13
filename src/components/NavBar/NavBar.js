@@ -13,10 +13,10 @@ export const NavBar = () => {
                 <Container className='justify-content-center'>
                     <Nav>
                     <Nav.Link as={Link} to="/" className='category_text pe-3'>HOME</Nav.Link>
-                        <Nav.Link as={Link} to="/product/women" className='category_text pe-3'>WOMEN</Nav.Link>
-                        <Nav.Link as={Link} to="/product/men" className='category_text pe-3'>MEN</Nav.Link>
-                        <Nav.Link as={Link} to="/product/shoes" className='category_text pe-3'>SHOES</Nav.Link>
-                        <Nav.Link as={Link} to="/product/accessories" className='category_text'>ACCESSORIES</Nav.Link>
+                        <Nav.Link as={Link} to="/category/women" className='category_text pe-3'>WOMEN</Nav.Link>
+                        <Nav.Link as={Link} to="/category/men" className='category_text pe-3'>MEN</Nav.Link>
+                        <Nav.Link as={Link} to="/category/shoes" className='category_text pe-3'>SHOES</Nav.Link>
+                        <Nav.Link as={Link} to="/category/accessories" className='category_text'>ACCESSORIES</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

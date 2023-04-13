@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import "./Product.css";
-import { ProductSlider } from "./ProductSlider";
+import "./CategoryPage.css";
 import { List } from "../List/List";
 import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import productSliderImage from "../img/product_slider.jpg";
 
-export const Product = () => {
+export const CategoryPage = () => {
     const category = useParams().category;
     const [maxPrice, setMaxPrice] = useState(1000);
     const [sort, setSort] = useState(null);
@@ -79,7 +79,15 @@ export const Product = () => {
                     </Col>
                     <Col xxl={10}>
                         <div className="right">
-                            <ProductSlider />
+                            <div style={{ position: "relative" }}>
+                                <div>
+                                    <img
+                                        className="slider_image"
+                                        src={productSliderImage}
+                                        alt=""
+                                    />
+                                </div>
+                            </div>
                             <List
                                 category={category}
                                 maxPrice={maxPrice}

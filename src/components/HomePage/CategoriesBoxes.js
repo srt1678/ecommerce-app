@@ -2,7 +2,7 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "./Categories.css";
+import "./CategoriesBoxes.css";
 import { Button } from "react-bootstrap";
 import category1 from "../img/category1.jpg";
 import category2 from "../img/category2.jpg";

@@ -1,0 +1,75 @@
+.productImageList{
+    margin-left: 2rem;
+}
+.listImage{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+.listImage:hover{
+    cursor: pointer;
+}
+.bigImage{
+    width: 100%;
+    height: 100%;
+}
+.quantityLine{
+    display: flex;
+    align-items: center;
+}
+.quantityButton{
+    background-color: rgb(218, 217, 217);
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    padding-bottom: 3px;
+}
+.quantityButton:hover{
+    background-color: rgb(184, 181, 181);
+}
+.quantityNum{
+    width: 3rem;
+    text-align: center;
+    padding-top: 0.5rem
+}
+.addToCartButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+    height: 3rem;
+    background-color: black;
+    color: white;
+    padding-top: 5px;
+}
+.addToCartButtonText{
+    color: white;
+    background-color: transparent;
+}
+.optionButtonList{
+    display: flex;
+    align-items: center;
+}
+.selectSizesContainer{
+    display: flex;
+    gap: 1rem;
+}
+.sizeButton{
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    outline-offset: -3px;
+}
+@media screen and (max-width: 576px) {
+    .productImageList{
+        display: flex;
+        margin-left: 0px;
+        gap: 1rem;
+    }
+    .listImage{
+        width: 30%;
+        height: 30vw;
+    }
+}
