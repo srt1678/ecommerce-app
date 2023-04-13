@@ -1,0 +1,64 @@
+.fixedNavBarContainer{
+    background-color: rgba(66, 66, 66, 0.2);
+    height: 3rem;
+    width: 13rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: fixed;
+    top: 4rem;
+    right: 2rem;
+    z-index: 1000;
+    border-radius: 2rem;
+    backdrop-filter: blur(10px);
+}
+.fixedIconsButton{
+    background-color: transparent;
+    width: 20%;
+    height: 85%;
+    border-radius: 3rem;
+}
+.fixedIconsButton:hover{
+    background-color: rgb(116, 115, 115);
+    transition: 0.4s ease-in-out;
+}
+.fixedIcons{
+    color: white;
+    background: transparent;
+    font-size: 25px;
+}
+.cartNum{
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    width: 1.1rem;
+    height: 1.1rem;
+    background-color:rgb(37, 37, 37);
+    border-radius: 0.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    color: white;
+    font-weight: 500;
+}
+@media screen and (max-width: 992px) {
+    .fixedNavBarContainer{
+        flex-direction: column;
+        height: 13rem;
+        width: 3rem;
+        top: 8rem;
+        right: 0.5rem;
+    }
+    .fixedIconsButton{
+        width: 85%;
+        height: 20%;
+    }
+    .fixedIcons{
+        font-size: 20px;
+    }
+    .cartNum{
+        top: 10rem;
+        right: 4px;
+    }
+}

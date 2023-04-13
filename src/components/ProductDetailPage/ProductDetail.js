@@ -48,15 +48,15 @@ export const ProductDetail = () => {
                     </Col>
                     <Col md={5} className=''>
                         <div>
-                            <h2>Title</h2>
-                            <h4>Price $</h4>
-                            <p>
+                            <h2 className='mb-3'>Title</h2>
+                            <h4 className='mb-3' style={{color: 'rgb(13,110,253)'}}>Price $</h4>
+                            <p className='mb-4'>
                                 Lorem Ipsum has been the industry's standard
                                 dummy text ever since the 1500s, when an unknown
                                 printer took a galley of type and scrambled it
                                 to make a type specimen book.
                             </p>
-                            <div className="quantityLine mb-3">
+                            <div className="quantityLine mb-4">
                                 <button
                                     className="quantityButton"
                                     style={
@@ -80,14 +80,14 @@ export const ProductDetail = () => {
                                     +
                                 </button>
                             </div>
-                            <div>
+                            <div className='mb-4'>
                                 <button className="addToCartButton">
                                     <h5 className="addToCartButtonText">
                                         ADD TO CART
                                     </h5>
                                 </button>
                             </div>
-                            <div className="optionButtonList mt-3">
+                            <div className="optionButtonList mt-3 mb-4">
                                 <Link
                                     className=""
                                     to={""}

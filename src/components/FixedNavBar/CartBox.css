@@ -1,0 +1,87 @@
+.cartBoxContainer,
+.cartItem,
+.totalPrice,
+.checkoutButton,
+.resetButton,
+.itemPrice,
+.checkoutButton,
+.details,
+.totalPrice > span,
+.cartBoxContainer > h4,
+.details > h5,
+.details > p,
+.resetButton > span {
+    background-color: white;
+}
+p{
+    color: rgb(119, 118, 118);
+}
+.cartBoxContainer {
+    position: fixed;
+    right: 2rem;
+    top: 8rem;
+    z-index: 999;
+    background-color: white;
+    padding: 20px;
+    border-radius: 1rem;
+}
+.cartBoxContainer > h4 {
+    font-weight: 400;
+}
+.cartItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.details {
+    width: 100%;
+}
+.details > h5 {
+    font-weight: 400;
+}
+.itemPrice{
+    color: rgb(13,110,253);
+}
+.cartImage {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+}
+.trashIcon {
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+}
+.totalPrice{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.checkoutButtonContainer{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+.checkoutButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+    height: 3rem;
+    background-color: black;
+    color: white;
+    padding-top: 5px;
+    font-weight: 500;
+}
+.resetCart{
+    color: red;
+    cursor: pointer;
+    font-weight: 500;
+}
+@media screen and (max-width: 992px) {
+    .cartBoxContainer{
+        right: 4rem;
+    }
+}

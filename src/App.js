@@ -4,12 +4,14 @@ import { Home } from "./components/HomePage/Home";
 import { CategoryPage } from "./components/CategoryPage/CategoryPage";
 import { ProductDetail } from "./components/ProductDetailPage/ProductDetail"; 
 import { NavBar } from "./components/NavBar/NavBar";
+import { FixedNavBar } from "./components/FixedNavBar/FixedNavBar";
 import { Footer } from "./components/Footer/Footer";
 
 function App() {
     return (
         <BrowserRouter>
             <NavBar />
+            <FixedNavBar/>
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/category/:category" element={<CategoryPage />}></Route>
