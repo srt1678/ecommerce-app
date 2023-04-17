@@ -16,7 +16,6 @@ export const ProductDetail = () => {
     ];
     const standardSizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
-
     return (
         <>
             <Container className="mt-3 mb-5">
@@ -37,7 +36,7 @@ export const ProductDetail = () => {
                             />
                         </div>
                     </Col>
-                    <Col md={5} sm={8} className='mb-5'>
+                    <Col md={5} sm={8} className="mb-5">
                         <div className="productBigImage">
                             <img
                                 className="bigImage"
@@ -46,16 +45,17 @@ export const ProductDetail = () => {
                             />
                         </div>
                     </Col>
-                    <Col md={5} className=''>
+                    <Col md={5} className="">
                         <div>
-                            <h2 className='mb-3'>Title</h2>
-                            <h4 className='mb-3' style={{color: 'rgb(13,110,253)'}}>Price $</h4>
-                            <p className='mb-4'>
-                                Lorem Ipsum has been the industry's standard
-                                dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it
-                                to make a type specimen book.
-                            </p>
+                            <h2 className="mb-3">Title</h2>
+                            <h4
+                                className="mb-3"
+                                style={{ color: "rgb(13,110,253)" }}
+                            >
+                                Price $
+                            </h4>
+                            <hr />
+                            <h5 className="mb-4">Color: Light Brown</h5>
                             <div className="quantityLine mb-4">
                                 <button
                                     className="quantityButton"
@@ -80,7 +80,7 @@ export const ProductDetail = () => {
                                     +
                                 </button>
                             </div>
-                            <div className='mb-4'>
+                            <div className="mb-4">
                                 <button className="addToCartButton">
                                     <h5 className="addToCartButtonText">
                                         ADD TO CART
@@ -125,13 +125,19 @@ export const ProductDetail = () => {
                                             style={
                                                 selectSize === singleSize
                                                     ? {
-                                                          backgroundColor: "black",
-                                                          color: 'white',
-                                                          outline: 'solid 1.5px white'
+                                                          backgroundColor:
+                                                              "black",
+                                                          color: "white",
+                                                          outline:
+                                                              "solid 1.5px white",
                                                       }
-                                                    : {backgroundColor: "rgb(218, 217, 217)",
-                                                    border: 'solid 1.5px black',
-                                                    outline: 'solid 1.5px black'}
+                                                    : {
+                                                          backgroundColor:
+                                                              "rgb(218, 217, 217)",
+                                                          border: "solid 1.5px black",
+                                                          outline:
+                                                              "solid 1.5px black",
+                                                      }
                                             }
                                         >
                                             {singleSize}
@@ -139,11 +145,19 @@ export const ProductDetail = () => {
                                     );
                                 })}
                             </div>
-                            <hr/>
+                            <hr />
                             <div className="moreDetail">
-                                <span>Description</span>
+                                <p>
+                                    New mid rise denim shorts in a long and
+                                    loose fit through the thigh, featuring a
+                                    light brown wash, functional pockets, belt
+                                    loops, frayed hem and zipper fly.
+                                </p>
                                 <hr />
-                                <span>Additional Information</span>
+                                <span>
+                                    Body:69% Cotton, 31% Lyocell / Pocket
+                                    Bag:70% Polyester, 30% Cotton
+                                </span>
                                 <hr />
                                 <span>FAQ</span>
                             </div>
