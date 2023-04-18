@@ -12,20 +12,37 @@ export const ProductCard = ({ item }) => {
             >
                 <div className="card">
                     <div className="card_image">
-                        {item.isNew && <span>New Season</span>}
-                        <img src={item.img} alt="" className="card_mainImg" />
-                        {item.img2 ? (
-                            <img
-                                src={item.img2}
-                                alt=""
-                                className="card_secondImg"
-                            />
-                        ): null}
+                        {item?.attributes.isNew && <span>New Season</span>}
+                        {item?.attributes.oldPrice && <span>On Sales</span>}
+                        <img
+                            src={
+                                process.env.REACT_APP_GRAPHQL_URL +
+                                item.attributes?.image?.data?.attributes?.url
+                            }
+                            alt=""
+                            className="card_mainImg"
+                        />
+                        <img
+                            src={
+                                process.env.REACT_APP_GRAPHQL_URL +
+                                item.attributes?.image2?.data?.attributes?.url
+                            }
+                            alt=""
+                            className="card_secondImg"
+                        />
                     </div>
-                    <h3>{item.title}</h3>
+                    <h3>{item?.attributes.title}</h3>
                     <div className="card_prices mb-4">
-                        <h4>${item.oldPrice}</h4>
-                        <h4>${item.price}</h4>
+                        {item?.attributes.oldPrice ? (
+                            <h4 className="oldPrice">
+                                ${item?.attributes.oldPrice}
+                            </h4>
+                        ) : (
+                            ""
+                        )}
+                        <h4 className="newPrice">
+                            ${item?.attributes.newPrice}
+                        </h4>
                     </div>
                 </div>
             </Link>

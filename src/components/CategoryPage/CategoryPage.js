@@ -6,11 +6,25 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import productSliderImage from "../img/product_slider.jpg";
+import { useQuery } from "@apollo/client";
+import { GetSubCategory } from "../GQL/GQLProduct";
+import { IsLoading, ErrorMessage } from "../IsLoading/IsLoadingError";
 
 export const CategoryPage = () => {
-    const category = useParams().category;
-    const [maxPrice, setMaxPrice] = useState(1000);
-    const [sort, setSort] = useState(null);
+    const category_ID = parseInt(useParams().categoryID);
+    const { loading, error, data } = useQuery(GetSubCategory(category_ID));
+    if (error) {
+        <ErrorMessage />;
+    }
+    const [maxPrice, setMaxPrice] = useState(500);
+    const [sort, setSort] = useState("asc");
+    const [selectSubCategory, setSelectSubCategory] = useState([])
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        const isChecked = e.target.checked;
+        setSelectSubCategory(isChecked? [...selectSubCategory, value]: selectSubCategory.filter((item) => item !== value))
+    }
 
     return (
         <div className="products mt-3">
@@ -19,33 +33,81 @@ export const CategoryPage = () => {
                     <Col xxl={2}>
                         <div className="left">
                             <div className="filterItem">
-                                <h5>Product Categories</h5>
-                                <div className="inputItem">
-                                    <input type="checkbox" id="1" value={1} />
-                                    <label htmlFor="1">Shoes</label>
-                                </div>
-                                <div className="inputItem">
-                                    <input type="checkbox" id="2" value={2} />
-                                    <label htmlFor="2">Skirts</label>
-                                </div>
-                                <div className="inputItem">
-                                    <input type="checkbox" id="3" value={3} />
-                                    <label htmlFor="3">Coats</label>
-                                </div>
+                                <h5>Categories</h5>
+                                {loading? (<IsLoading/>) : (data.subCategories.data.map(
+                                    (singleCategory) => {
+                                        const id = singleCategory.id;
+                                        return (
+                                            <div className="inputItem" key={id}>
+                                                <input
+                                                    type="checkbox"
+                                                    id={id}
+                                                    value={id}
+                                                    onChange={handleChange}
+                                                />
+                                                <label htmlFor={id}>
+                                                    {
+                                                        singleCategory
+                                                            .attributes
+                                                            .sub_category_title
+                                                    }
+                                                </label>
+                                            </div>
+                                        );
+                                    }
+                                ))}
                             </div>
                             <div className="filterItem">
                                 <h5>Filter by price</h5>
                                 <div className="inputItem">
-                                    <span>0</span>
                                     <input
-                                        type="range"
-                                        min={0}
-                                        max={1000}
-                                        onChange={(e) =>
-                                            setMaxPrice(e.target.value)
-                                        }
+                                        type="radio"
+                                        name="price"
+                                        onChange={(e) => setMaxPrice(100)}
                                     />
-                                    <span>{maxPrice}</span>
+                                    <label htmlFor="asc">
+                                        {'< $100'}
+                                    </label>
+                                </div>
+                                <div className="inputItem">
+                                    <input
+                                        type="radio"
+                                        name="price"
+                                        onChange={(e) => setMaxPrice(200)}
+                                    />
+                                    <label htmlFor="desc">
+                                        {'< $200'}
+                                    </label>
+                                </div>
+                                <div className="inputItem">
+                                    <input
+                                        type="radio"
+                                        name="price"
+                                        onChange={(e) => setMaxPrice(300)}
+                                    />
+                                    <label htmlFor="desc">
+                                        {'< $300'}
+                                    </label>
+                                </div>
+                                <div className="inputItem">
+                                    <input
+                                        type="radio"
+                                        name="price"
+                                        onChange={(e) => setMaxPrice(400)}
+                                    />
+                                    <label htmlFor="desc">
+                                        {'< $400'}
+                                    </label>
+                                </div>
+                                <div className="inputItem">
+                                    <input
+                                        type="radio"
+                                        name="price"
+                                        onChange={(e) => setMaxPrice(500)}
+                                    />
+                                    <label htmlFor="desc">
+                                        {'< $500'}
+                                    </label>
                                 </div>
                             </div>
                             <div className="filterItem">
@@ -56,7 +118,7 @@ export const CategoryPage = () => {
                                         id="asc"
                                         value="asc"
                                         name="price"
-                                        onChange={(e) => setSort("asc")}
+                                        onChange={(e) => setSort("up")}
                                     />
                                     <label htmlFor="asc">
                                         Price (Lowest first)
@@ -68,7 +130,7 @@ export const CategoryPage = () => {
                                         id="desc"
                                         value="desc"
                                         name="price"
-                                        onChange={(e) => setSort("desc")}
+                                        onChange={(e) => setSort("down")}
                                     />
                                     <label htmlFor="desc">
                                         Price (Highest first)
@@ -89,9 +151,10 @@ export const CategoryPage = () => {
                                 </div>
                             </div>
                             <List
-                                category={category}
+                                category_ID={category_ID}
                                 maxPrice={maxPrice}
                                 sort={sort}
+                                selectSubCategory={selectSubCategory}
                             />
                         </div>
                     </Col>

@@ -9,7 +9,7 @@ import { Footer } from "./components/Footer/Footer";
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:1338/graphql',
+  uri: `${process.env.REACT_APP_GRAPHQL_URL}/graphql`,
   cache: new InMemoryCache(),
   headers: {
     authorization: `bearer ${process.env.REACT_APP_STRAPI}`
@@ -25,7 +25,7 @@ function App() {
                 <Routes>
                     <Route exact path="/" element={<Home />}></Route>
                     <Route
-                        path="/category/:category"
+                        path="/category/:categoryID"
                         element={<CategoryPage />}
                     ></Route>
                     <Route

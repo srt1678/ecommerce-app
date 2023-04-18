@@ -74,8 +74,8 @@
       "type": "enumeration",
       "enum": [
         "normal",
-        "featured",
-        "trending"
+        "Featured",
+        "Trending"
       ]
     }
   }

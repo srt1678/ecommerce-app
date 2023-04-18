@@ -27,13 +27,23 @@
         justify-content: space-evenly;
     }
 }
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 778px) {
     .left{
         display: flex;
         flex-direction: column;
     }
     .filterItem{
         display: flex;
-        justify-content: space-evenly;
+        justify-content: left;
+        flex-wrap: wrap;
+    }
+    .inputItem{
+        display: flex;
+        margin-left: 1rem;
+        align-items: center;
+    }
+    .inputItem > label{
+        margin-bottom: 0px;
+        padding-left: 0.5rem;
     }
 }

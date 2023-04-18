@@ -44,11 +44,11 @@
     display: flex;
     gap: 0.5rem;
 }
-.card_prices > h4{
+.oldPrice, .newPrice{
     font-size: 20px;
     font-weight: 500;
 }
-.card_prices > h4:first-child{
+.oldPrice{
     text-decoration: line-through;
     color: gray;
 }
