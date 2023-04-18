@@ -1,34 +1,38 @@
 import { gql } from "@apollo/client";
 
+const productFields = `
+    id
+    attributes {
+        title
+        color
+        description
+        additionalInfo
+        isNew
+        oldPrice
+        newPrice
+        type
+        image {
+            data {
+                attributes {
+                url
+                }
+            }
+        }
+        image2 {
+            data {
+                attributes {
+                url
+                }
+            }
+        }
+    }
+`;
+
 export const PRODUCTS = gql`
     query GetProducts {
         products {
             data {
-                id
-                attributes {
-                    title
-                    color
-                    description
-                    additionalInfo
-                    isNew
-                    oldPrice
-                    newPrice
-                    type
-                    image {
-                        data {
-                            attributes {
-                                url
-                            }
-                        }
-                    }
-                    image2 {
-                        data {
-                            attributes {
-                                url
-                            }
-                        }
-                    }
-                }
+                ${productFields}
             }
         }
     }
@@ -39,31 +43,7 @@ export const GetFeaturedTrendingProduct = (type) => {
         query GetProducts {
             products(filters: {type: {eq: "${type}"}}){
                 data {
-                    id
-                    attributes {
-                        title
-                        color
-                        description
-                        additionalInfo
-                        isNew
-                        oldPrice
-                        newPrice
-                        type
-                        image {
-                            data {
-                                attributes {
-                                    url
-                                }
-                            }
-                        }
-                        image2 {
-                            data {
-                                attributes {
-                                    url
-                                }
-                            }
-                        }
-                    }
+                    ${productFields}
                 }
             }
         }
@@ -81,6 +61,19 @@ export const GetSubCategory = (id) => {
                     }
                 }
             }
+            categories(filters: {id: {eq: ${id}}}){
+                data{
+                    attributes{
+                        category_image{
+                            data{
+                                attributes{
+                                    url
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     `;
 };
@@ -93,31 +86,7 @@ export const GetProductsFromCategory = (id) => {
                     attributes{
                         products{
                             data{
-                                id
-                                attributes {
-                                    title
-                                    color
-                                    description
-                                    additionalInfo
-                                    isNew
-                                    oldPrice
-                                    newPrice
-                                    type
-                                    image {
-                                        data {
-                                            attributes {
-                                                url
-                                            }
-                                        }
-                                    }
-                                    image2 {
-                                        data {
-                                            attributes {
-                                                url
-                                            }
-                                        }
-                                    }
-                                }
+                                ${productFields}
                             }
                         }
                     }
@@ -134,12 +103,12 @@ export const GetProductsFromCategoryAndSub = (
     sort
 ) => {
     let sortingType = "id";
-    if(sort === "up" || sort === "down"){
-        sortingType = "newPrice"
-        if(sort === "up"){
-            sort = "asc"
-        }else{
-            sort = "desc"
+    if (sort === "up" || sort === "down") {
+        sortingType = "newPrice";
+        if (sort === "up") {
+            sort = "asc";
+        } else {
+            sort = "desc";
         }
     }
     return gql`
@@ -149,31 +118,7 @@ export const GetProductsFromCategoryAndSub = (
                     attributes{
                         products(filters: {sub_categories: {id: {in: [${selectSubCategory}]}}, and: {newPrice: {lte: ${maxPrice}}}}, sort:"${sortingType}:${sort}"){
                             data{
-                                id
-                                attributes{
-                                    title
-                                    description
-                                    isNew
-                                    additionalInfo
-                                    color
-                                    newPrice
-                                    oldPrice
-                                    type
-                                    image {
-                                        data {
-                                        attributes {
-                                            url
-                                        }
-                                        }
-                                    }
-                                    image2 {
-                                        data {
-                                        attributes {
-                                            url
-                                        }
-                                        }
-                                    }
-                                }
+                                ${productFields}
                             }
                         }
                     }
@@ -182,3 +127,13 @@ export const GetProductsFromCategoryAndSub = (
         }
     `;
 };
+
+export const GetProductDetail = gql`
+    query getProductDetail($id: ID!){
+        product(id: $id){
+            data {
+                ${productFields}
+            }
+        }
+    }
+`;

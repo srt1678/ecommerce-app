@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import productSliderImage from "../img/product_slider.jpg";
 import { useQuery } from "@apollo/client";
-import { GetSubCategory } from "../GQL/GQLProduct";
+import { GetSubCategory, GetCategoryBanner } from "../GQL/GQLProduct";
 import { IsLoading, ErrorMessage } from "../IsLoading/IsLoadingError";
 
 export const CategoryPage = () => {
@@ -18,13 +18,17 @@ export const CategoryPage = () => {
     }
     const [maxPrice, setMaxPrice] = useState(500);
     const [sort, setSort] = useState("asc");
-    const [selectSubCategory, setSelectSubCategory] = useState([])
+    const [selectSubCategory, setSelectSubCategory] = useState([]);
 
     const handleChange = (e) => {
         const value = e.target.value;
         const isChecked = e.target.checked;
-        setSelectSubCategory(isChecked? [...selectSubCategory, value]: selectSubCategory.filter((item) => item !== value))
-    }
+        setSelectSubCategory(
+            isChecked
+                ? [...selectSubCategory, value]
+                : selectSubCategory.filter((item) => item !== value)
+        );
+    };
 
     return (
         <div className="products mt-3">
@@ -34,28 +38,35 @@ export const CategoryPage = () => {
                         <div className="left">
                             <div className="filterItem">
                                 <h5>Categories</h5>
-                                {loading? (<IsLoading/>) : (data.subCategories.data.map(
-                                    (singleCategory) => {
-                                        const id = singleCategory.id;
-                                        return (
-                                            <div className="inputItem" key={id}>
-                                                <input
-                                                    type="checkbox"
-                                                    id={id}
-                                                    value={id}
-                                                    onChange={handleChange}
-                                                />
-                                                <label htmlFor={id}>
-                                                    {
-                                                        singleCategory
-                                                            .attributes
-                                                            .sub_category_title
-                                                    }
-                                                </label>
-                                            </div>
-                                        );
-                                    }
-                                ))}
+                                {loading ? (
+                                    <IsLoading />
+                                ) : (
+                                    data.subCategories.data.map(
+                                        (singleCategory) => {
+                                            const id = singleCategory.id;
+                                            return (
+                                                <div
+                                                    className="inputItem"
+                                                    key={id}
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        id={id}
+                                                        value={id}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <label htmlFor={id}>
+                                                        {
+                                                            singleCategory
+                                                                .attributes
+                                                                .sub_category_title
+                                                        }
+                                                    </label>
+                                                </div>
+                                            );
+                                        }
+                                    )
+                                )}
                             </div>
                             <div className="filterItem">
                                 <h5>Filter by price</h5>
@@ -65,9 +76,7 @@ export const CategoryPage = () => {
                                         name="price"
                                         onChange={(e) => setMaxPrice(100)}
                                     />
-                                    <label htmlFor="asc">
-                                        {'< $100'}
-                                    </label>
+                                    <label htmlFor="asc">{"< $100"}</label>
                                 </div>
                                 <div className="inputItem">
                                     <input
@@ -75,9 +84,7 @@ export const CategoryPage = () => {
                                         name="price"
                                         onChange={(e) => setMaxPrice(200)}
                                     />
-                                    <label htmlFor="desc">
-                                        {'< $200'}
-                                    </label>
+                                    <label htmlFor="desc">{"< $200"}</label>
                                 </div>
                                 <div className="inputItem">
                                     <input
@@ -85,9 +92,7 @@ export const CategoryPage = () => {
                                         name="price"
                                         onChange={(e) => setMaxPrice(300)}
                                     />
-                                    <label htmlFor="desc">
-                                        {'< $300'}
-                                    </label>
+                                    <label htmlFor="desc">{"< $300"}</label>
                                 </div>
                                 <div className="inputItem">
                                     <input
@@ -95,9 +100,7 @@ export const CategoryPage = () => {
                                         name="price"
                                         onChange={(e) => setMaxPrice(400)}
                                     />
-                                    <label htmlFor="desc">
-                                        {'< $400'}
-                                    </label>
+                                    <label htmlFor="desc">{"< $400"}</label>
                                 </div>
                                 <div className="inputItem">
                                     <input
@@ -105,9 +108,7 @@ export const CategoryPage = () => {
                                         name="price"
                                         onChange={(e) => setMaxPrice(500)}
                                     />
-                                    <label htmlFor="desc">
-                                        {'< $500'}
-                                    </label>
+                                    <label htmlFor="desc">{"< $500"}</label>
                                 </div>
                             </div>
                             <div className="filterItem">
@@ -141,15 +142,25 @@ export const CategoryPage = () => {
                     </Col>
                     <Col xxl={10}>
                         <div className="right">
-                            <div style={{ position: "relative" }}>
-                                <div>
-                                    <img
-                                        className="slider_image"
-                                        src={productSliderImage}
-                                        alt=""
-                                    />
+                            {loading ? (
+                                <IsLoading />
+                            ) : (
+                                <div style={{ position: "relative" }}>
+                                    <div>
+                                        <img
+                                            className="slider_image"
+                                            src={
+                                                process.env
+                                                    .REACT_APP_GRAPHQL_URL +
+                                                data?.categories?.data[0]
+                                                    ?.attributes?.category_image
+                                                    ?.data?.attributes?.url
+                                            }
+                                            alt=""
+                                        />
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                             <List
                                 category_ID={category_ID}
                                 maxPrice={maxPrice}
