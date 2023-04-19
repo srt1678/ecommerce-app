@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,6 +8,8 @@ import "./ProductDetail.css";
 import { useQuery } from "@apollo/client";
 import { GetProductDetail } from "../GQL/GQLProduct";
 import { IsLoading, ErrorMessage } from "../IsLoading/IsLoadingError";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartReducer";
 
 export const ProductDetail = () => {
     const itemId = parseInt(useParams().id);
@@ -15,7 +17,10 @@ export const ProductDetail = () => {
     const [quantity, setQuantity] = useState(0);
     const [selectSize, setSelectSize] = useState("L");
     const standardSizes = ["XS", "S", "M", "L", "XL", "XXL"];
-    
+    const initialAddToCartText = "ADD TO CART";
+    const [addToCartText, setAddToCartText] = useState(initialAddToCartText);
+
+    const dispatch = useDispatch();
     const { loading, error, data } = useQuery(GetProductDetail, {
         variables: { id: itemId },
     });
@@ -29,6 +34,11 @@ export const ProductDetail = () => {
             data?.product?.data?.attributes?.image2?.data?.attributes?.url,
     ];
     const detailData = data?.product?.data?.attributes;
+
+    const changeText = () => {
+        setAddToCartText("IS NOW ADDED!");
+        setTimeout(() => setAddToCartText(initialAddToCartText), [3000]);
+    };
 
     return (
         <>
@@ -76,15 +86,21 @@ export const ProductDetail = () => {
                             <div>
                                 <h2 className="mb-3">{detailData.title}</h2>
 
-                                <div style={{ display: "flex", gap: '1rem' }}>
+                                <div style={{ display: "flex", gap: "1rem" }}>
                                     {detailData.oldPrice ? (
-                                        <h4 className="oldPrice" style={{fontSize: '1.5rem'}}>
+                                        <h4
+                                            className="oldPrice"
+                                            style={{ fontSize: "1.5rem" }}
+                                        >
                                             ${detailData.oldPrice}
                                         </h4>
                                     ) : (
                                         ""
                                     )}
-                                    <h4 className="newPrice" style={{fontSize: '1.5rem'}}>
+                                    <h4
+                                        className="newPrice"
+                                        style={{ fontSize: "1.5rem" }}
+                                    >
                                         ${detailData.newPrice}
                                     </h4>
                                 </div>
@@ -122,9 +138,35 @@ export const ProductDetail = () => {
                                     </button>
                                 </div>
                                 <div className="mb-4">
-                                    <button className="addToCartButton">
+                                    <button
+                                        className="addToCartButton"
+                                        style={
+                                            quantity === 0
+                                                ? {
+                                                      pointerEvents: "none",
+                                                      backgroundColor:
+                                                          "rgb(74, 74, 74)",
+                                                  }
+                                                : { pointerEvent: "auto" }
+                                        }
+                                        onClick={() => {
+                                            dispatch(
+                                                addToCart({
+                                                    id: data.product.data.id,
+                                                    title: detailData.title,
+                                                    description:
+                                                        detailData.description,
+                                                    price: detailData.newPrice,
+                                                    image: image[0],
+                                                    quantity,
+                                                    selectSize
+                                                })
+                                            );
+                                            changeText();
+                                        }}
+                                    >
                                         <h5 className="addToCartButtonText">
-                                            ADD TO CART
+                                            {addToCartText}
                                         </h5>
                                     </button>
                                 </div>

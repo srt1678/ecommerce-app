@@ -3,7 +3,9 @@
 .totalPrice,
 .checkoutButton,
 .resetButton,
+.priceAndSize,
 .itemPrice,
+.sizeList,
 .checkoutButton,
 .details,
 .totalPrice > span,
@@ -24,7 +26,21 @@ p{
     background-color: white;
     padding: 20px;
     border-radius: 1rem;
+    overflow-y:scroll;
+    max-height: 100vw;
 }
+.cartBoxContainer::-webkit-scrollbar{
+    width: 0.5rem;
+    height: 10px;
+}
+.cartBoxContainer::-webkit-scrollbar-thumb {
+    background: #d3d3d3;
+    border-radius: 5px;
+    
+  }
+  .cartBoxContainer::-webkit-scrollbar-thumb:hover {
+    background: #aaa9a9;
+  }
 .cartBoxContainer > h4 {
     font-weight: 400;
 }
@@ -40,8 +56,13 @@ p{
 .details > h5 {
     font-weight: 400;
 }
-.itemPrice{
-    color: rgb(13,110,253);
+.priceAndSize{
+    display: flex;
+    gap: 1rem;
+}
+.sizeList{
+    display: flex;
+    gap: 0.5rem;
 }
 .cartImage {
     width: 80px;
@@ -83,5 +104,6 @@ p{
 @media screen and (max-width: 992px) {
     .cartBoxContainer{
         right: 4rem;
+        margin-left: 1rem;
     }
 }

@@ -1,65 +1,82 @@
 import React from "react";
 import "./CartBox.css";
 import { Trash } from "react-bootstrap-icons";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteItem, resetCart } from "../../redux/cartReducer";
 
 export const CartBox = () => {
-    const data = [
-        {
-            id: 1,
-            img: "https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600",
-            img2: "https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
-            title: "Long Sleeve Graphic T-shirt",
-            desc: "Long Sleeve Graphic T-shirt",
-            isNew: true,
-            oldPrice: 19,
-            price: 12,
-        },
-        {
-            id: 2,
-            img: "https://images.pexels.com/photos/1759622/pexels-photo-1759622.jpeg?auto=compress&cs=tinysrgb&w=1600",
-            title: "Coat",
-            desc: "Long Sleeve Graphic T-shirt",
-            isNew: true,
-            oldPrice: 19,
-            price: 12,
-        },
-    ];
+    const cartProducts = useSelector((state) => state.cart.products);
+    const sizeReducer = useSelector((state) => state.cart.size);
+    const totalPrice = () => {
+        let total = 0;
+        cartProducts.forEach((item) => (total += item.quantity * item.price));
+        return total.toFixed(2);
+    };
+
+    const dispatch = useDispatch();
     return (
         <div className="cartBoxContainer">
-            <h4 className='mb-3'>Products in your cart</h4>
-            {data?.map((singleItem) => {
+            <h4 className="mb-3">Products in your cart</h4>
+            {cartProducts?.map((singleItem) => {
                 return (
                     <div className="cartItem" key={singleItem.id}>
                         <img
                             className="cartImage"
-                            src={singleItem.img}
+                            src={singleItem.image}
                             alt=""
                         />
                         <div className="details">
                             <h5>{singleItem.title}</h5>
-                            <p>{singleItem.desc?.substring(0, 100)}</p>
-                            <div className="itemPrice">
-                                1 x ${singleItem.price}
+                            <p>{singleItem.description?.substring(0, 50)}</p>
+                            <div className="priceAndSize">
+                                <div className="itemPrice">
+                                    ${singleItem.price} x {singleItem.quantity}
+                                </div>
+                                <div className="sizeList">
+                                    Size: {""}
+                                    {sizeReducer.map((obj) => {
+                                        if(obj.id === singleItem.id){
+                                            return(
+                                                <div style={{display: 'flex', gap: '0.5rem'}} key={obj.id}>
+                                                    {obj.listSize.map((singleSize) => {
+                                                        return(
+                                                            <div style={{backgroundColor: 'white'}} key={singleSize.size+singleSize.count}>
+                                                                {"("}{singleSize.size} x {singleSize.count}{")"}
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
+                                            )
+                                        }
+                                    })}
+                                </div>
                             </div>
                         </div>
                         <div>
-                            <Trash className="trashIcon" />
+                            <Trash
+                                className="trashIcon"
+                                onClick={() =>
+                                    dispatch(deleteItem(singleItem.id))
+                                }
+                            />
                         </div>
                     </div>
                 );
             })}
             <div className="totalPrice mb-3">
                 <span>SUBTOTAL</span>
-                <span>$123</span>
+                <span>$ {totalPrice()}</span>
             </div>
-            <div className='checkoutButtonContainer mb-3'>
-                <button className='checkoutButton'>PROCEED TO CHECKOUT</button>
+            <div className="checkoutButtonContainer mb-3">
+                <button className="checkoutButton">PROCEED TO CHECKOUT</button>
             </div>
-            <div className='resetButton'>
-                <span className="resetCart">Reset Cart</span>
+            <div className="resetButton">
+                <span
+                    className="resetCart"
+                    onClick={() => dispatch(resetCart())}
+                >
+                    Reset Cart
+                </span>
             </div>
         </div>
     );

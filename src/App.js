@@ -6,36 +6,37 @@ import { ProductDetail } from "./components/ProductDetailPage/ProductDetail";
 import { NavBar } from "./components/NavBar/NavBar";
 import { FixedNavBar } from "./components/FixedNavBar/FixedNavBar";
 import { Footer } from "./components/Footer/Footer";
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: `${process.env.REACT_APP_GRAPHQL_URL}/graphql`,
-  cache: new InMemoryCache(),
-  headers: {
-    authorization: `bearer ${process.env.REACT_APP_STRAPI}`
-  }
+    uri: `${process.env.REACT_APP_GRAPHQL_URL}/graphql`,
+    cache: new InMemoryCache(),
+    headers: {
+        authorization: `bearer ${process.env.REACT_APP_STRAPI}`,
+    },
 });
 
 function App() {
+
     return (
-        <BrowserRouter>
-            <ApolloProvider client={client}>
-                <NavBar />
-                <FixedNavBar />
-                <Routes>
-                    <Route exact path="/" element={<Home />}></Route>
-                    <Route
-                        path="/category/:categoryID"
-                        element={<CategoryPage />}
-                    ></Route>
-                    <Route
-                        path="/product/:id"
-                        element={<ProductDetail />}
-                    ></Route>
-                </Routes>
-                <Footer />
-            </ApolloProvider>
-        </BrowserRouter>
+            <BrowserRouter>
+                <ApolloProvider client={client}>
+                    <NavBar />
+                    <FixedNavBar />
+                    <Routes>
+                        <Route exact path="/" element={<Home />}></Route>
+                        <Route
+                            path="/category/:categoryID"
+                            element={<CategoryPage />}
+                        ></Route>
+                        <Route
+                            path="/product/:id"
+                            element={<ProductDetail />}
+                        ></Route>
+                    </Routes>
+                    <Footer />
+                </ApolloProvider>
+            </BrowserRouter>
     );
 }
 
