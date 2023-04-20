@@ -22,14 +22,15 @@ export const ProductCard = ({ item }) => {
                             alt=""
                             className="card_mainImg"
                         />
-                        <img
+                        {item.attributes.image2.data? (<img
                             src={
                                 process.env.REACT_APP_GRAPHQL_URL +
                                 item.attributes?.image2?.data?.attributes?.url
                             }
                             alt=""
                             className="card_secondImg"
-                        />
+                        />): null}
+                        
                     </div>
                     <h3>{item?.attributes.title}</h3>
                     <div className="card_prices mb-4">

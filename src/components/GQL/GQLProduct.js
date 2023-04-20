@@ -116,7 +116,7 @@ export const GetProductsFromCategoryAndSub = (
             categories(filters: {id: {eq: ${category_ID}}}){
                 data{
                     attributes{
-                        products(filters: {sub_categories: {id: {in: [${selectSubCategory}]}}, and: {newPrice: {lte: ${maxPrice}}}}, sort:"${sortingType}:${sort}"){
+                        products(filters: {sub_categories: {id: {in: [${selectSubCategory}]}}, and: {newPrice: {lte: ${maxPrice}}}}, sort:"${sortingType}:${sort}", pagination: {limit: 15}){
                             data{
                                 ${productFields}
                             }

@@ -5,9 +5,8 @@ import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import productSliderImage from "../img/product_slider.jpg";
 import { useQuery } from "@apollo/client";
-import { GetSubCategory, GetCategoryBanner } from "../GQL/GQLProduct";
+import { GetSubCategory } from "../GQL/GQLProduct";
 import { IsLoading, ErrorMessage } from "../IsLoading/IsLoadingError";
 
 export const CategoryPage = () => {
