@@ -53,6 +53,7 @@ export const cartSlice = createSlice({
         },
         resetCart: (state) => {
             state.products = [];
+            state.size = [];
         },
     },
 });
