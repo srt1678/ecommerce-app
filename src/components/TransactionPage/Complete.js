@@ -3,7 +3,7 @@ import Confetti from "react-confetti";
 import { useWindowSize } from "@react-hook/window-size";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { resetCart } from "../../redux/cartReducer";
+import { resetCart } from "../../redux/reduxReducer";
 
 export const Complete = () => {
     const { width } = useWindowSize();

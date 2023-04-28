@@ -14,9 +14,10 @@ import { useNavigate } from "react-router-dom";
 
 const Categories = () => {
     const navigate = useNavigate();
-    const handleButton = (category) => {
-        navigate(`/product`);
+    const handleButton = (categoryNum) => {
+        navigate(`/category/${categoryNum}`);
     };
+    
     return (
         <div className="categories mx-5 pb-3">
             <Container fluid>
@@ -33,7 +34,7 @@ const Categories = () => {
                                     <Button
                                         className="category_button"
                                         variant="outline-light"
-                                        onClick={() => handleButton('women')}
+                                        onClick={() => handleButton(1)}
                                     >
                                         WOMEN
                                     </Button>
@@ -51,7 +52,7 @@ const Categories = () => {
                                     <Button
                                         className="category_button"
                                         variant="outline-light"
-                                        onClick={() => handleButton('shoes')}
+                                        onClick={() => handleButton(3)}
                                     >
                                         SHOES
                                     </Button>
@@ -71,7 +72,7 @@ const Categories = () => {
                                     <Button
                                         className="category_button"
                                         variant="outline-light"
-                                        onClick={() => handleButton('sales')}
+                                        onClick={() => handleButton(1)}
                                     >
                                         SALES
                                     </Button>
@@ -91,7 +92,7 @@ const Categories = () => {
                                     <Button
                                         className="category_button"
                                         variant="outline-light"
-                                        onClick={() => handleButton('men')}
+                                        onClick={() => handleButton(2)}
                                     >
                                         MEN
                                     </Button>
@@ -107,7 +108,7 @@ const Categories = () => {
                                     <Button
                                         className="category_button"
                                         variant="outline-light"
-                                        onClick={() => handleButton('accessories')}
+                                        onClick={() => handleButton(4)}
                                     >
                                         ACCESSORIES
                                     </Button>
@@ -124,7 +125,7 @@ const Categories = () => {
                                 <Button
                                     className="category_button"
                                     variant="outline-light"
-                                    onClick={() => handleButton('newSeasons')}
+                                    onClick={() => handleButton(2)}
                                 >
                                     NEW SEASONS
                                 </Button>

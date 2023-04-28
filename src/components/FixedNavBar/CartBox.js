@@ -2,7 +2,7 @@ import React from "react";
 import "./CartBox.css";
 import { Trash } from "react-bootstrap-icons";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteItem, resetCart } from "../../redux/cartReducer";
+import { deleteItem, resetCart } from "../../redux/reduxReducer";
 import { loadStripe } from "@stripe/stripe-js";
 import { createRequest } from "../../createRequest";
 

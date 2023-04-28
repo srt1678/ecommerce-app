@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Heart, Grid } from "react-bootstrap-icons";
+import { Heart, Grid, Heartbreak } from "react-bootstrap-icons";
 import { useParams, Link } from "react-router-dom";
 import "./ProductDetail.css";
 import { useQuery } from "@apollo/client";
 import { GetProductDetail } from "../GQL/GQLProduct";
 import { IsLoading, ErrorMessage } from "../IsLoading/IsLoadingError";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/cartReducer";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart, addToWishList, deleteWishList } from "../../redux/reduxReducer";
 
 export const ProductDetail = () => {
     const itemId = parseInt(useParams().id);
@@ -19,6 +19,7 @@ export const ProductDetail = () => {
     const standardSizes = ["XS", "S", "M", "L", "XL", "XXL"];
     const initialAddToCartText = "ADD TO CART";
     const [addToCartText, setAddToCartText] = useState(initialAddToCartText);
+    const wishList = useSelector((state) => state.cart.wishList);
 
     const dispatch = useDispatch();
     const { loading, error, data } = useQuery(GetProductDetail, {
@@ -40,6 +41,9 @@ export const ProductDetail = () => {
         setTimeout(() => setAddToCartText(initialAddToCartText), [3000]);
     };
 
+    const inWishList = wishList.find(
+        (item) => item.id === data?.product?.data.id
+    );
     return (
         <>
             {loading ? (
@@ -159,7 +163,7 @@ export const ProductDetail = () => {
                                                     price: detailData.newPrice,
                                                     image: image[0],
                                                     quantity,
-                                                    selectSize
+                                                    selectSize,
                                                 })
                                             );
                                             changeText();
@@ -178,10 +182,39 @@ export const ProductDetail = () => {
                                             textDecoration: "inherit",
                                         }}
                                     >
-                                        <div className="favButton me-3">
-                                            <Heart className="me-2" /> ADD TO
-                                            WISH LIST
+                                        {inWishList ? (
+                                            <div
+                                            className="favButton me-3"
+                                            onClick={() =>
+                                                dispatch(deleteWishList(data.product.data.id))
+                                            }
+                                        >
+                                            <Heartbreak className="me-2" /> REMOVE FROM WISH LIST
                                         </div>
+                                        ) : (
+                                            <div
+                                                className="favButton me-3"
+                                                onClick={() => {
+                                                    dispatch(
+                                                        addToWishList({
+                                                            id: data.product
+                                                                .data.id,
+                                                            title: detailData.title,
+                                                            oldPrice:
+                                                                detailData.oldPrice,
+                                                            newPrice:
+                                                                detailData.newPrice,
+                                                            image1: image[0],
+                                                            image2: image[1],
+                                                            isNew: detailData.isNew,
+                                                        })
+                                                    );
+                                                }}
+                                            >
+                                                <Heart className="me-2" /> ADD
+                                                TO WISH LIST
+                                            </div>
+                                        )}
                                     </Link>
                                     <Link
                                         className=""

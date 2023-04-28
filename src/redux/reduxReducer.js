@@ -3,10 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     products: [],
     size: [],
+    wishList: []
 };
 
-export const cartSlice = createSlice({
-    name: "cart",
+export const reduxSlice = createSlice({
+    name: "redux",
     initialState,
     reducers: {
         addToCart: (state, action) => {
@@ -55,8 +56,21 @@ export const cartSlice = createSlice({
             state.products = [];
             state.size = [];
         },
+        addToWishList: (state, action) => {
+            const item = state.wishList.find(
+                (item) => item.id === action.payload.id
+            );
+            if (!item) {
+                state.wishList.push(action.payload);
+            }
+        },
+        deleteWishList: (state, action) => {
+            state.wishList = state.wishList.filter(
+                (singleItem) => singleItem.id !== action.payload
+            );
+        }
     },
 });
 
-export const { addToCart, deleteItem, resetCart } = cartSlice.actions;
-export default cartSlice.reducer;
+export const { addToCart, deleteItem, resetCart, addToWishList, deleteWishList } = reduxSlice.actions;
+export default reduxSlice.reducer;

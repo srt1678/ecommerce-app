@@ -9,6 +9,7 @@ import { Footer } from "./components/Footer/Footer";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { Complete } from "./components/TransactionPage/Complete";
 import { Failure } from "./components/TransactionPage/Failure";
+import { WishList } from "./components/WishList/WishList";
 
 const client = new ApolloClient({
     uri: `${process.env.REACT_APP_GRAPHQL_URL}/graphql`,
@@ -37,6 +38,7 @@ function App() {
                         ></Route>
                         <Route exact path='/success/true' element={<Complete/>}></Route>
                         <Route exact path='/success/false' element={<Failure/>}></Route>
+                        <Route path='/wishList' element={<WishList/>}></Route>
                     </Routes>
                     <Footer />
                 </ApolloProvider>
