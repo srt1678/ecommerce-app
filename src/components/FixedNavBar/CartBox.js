@@ -17,7 +17,6 @@ export const CartBox = () => {
         return total.toFixed(2);
     };
 
-    console.log(cartProducts);
     const stripePromise = loadStripe(process.env.REACT_APP_STRIP_PUBLIC_KEY);
     const handlePayment = async () => {
         try {

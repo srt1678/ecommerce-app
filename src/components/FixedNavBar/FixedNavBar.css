@@ -17,10 +17,13 @@
     width: 20%;
     height: 85%;
     border-radius: 3rem;
+    transition: 0.3s ease-in-out;
 }
 .fixedIconsButton:hover {
-    background-color: rgb(116, 115, 115);
-    transition: 0.4s ease-in-out;
+    background-color: rgb(116, 115, 115); 
+}
+.fixedIconsButton.rotate{
+    transform: rotate(45deg) !important;
 }
 .fixedIcons {
     color: white;
@@ -46,6 +49,18 @@
 .wishListNum {
     right: 3.7rem;
 }
+.searchBarContainer{
+    margin-right: 1rem;
+    background-color: transparent;
+}
+.searchBar{
+    width: 7.75rem;
+    border-radius: 10px;
+    background-color: rgb(248, 248, 241);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    height: 2rem;
+}
 @media screen and (max-width: 992px) {
     .fixedNavBarContainer {
         flex-direction: column;
@@ -68,5 +83,18 @@
     .cartNum {
         top: 10rem;
         right: 4px;
+    }
+    .searchBarContainer{
+        position: absolute;
+        top: 10%;
+        right: 4rem;
+    }
+    .searchBar{
+        background-color: rgba(66, 66, 66, 0.8);
+        width: 55vw;
+        color: white;
+    }
+    .searchBar::placeholder{
+        color: white;
     }
 }

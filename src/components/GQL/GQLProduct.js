@@ -137,3 +137,15 @@ export const GetProductDetail = gql`
         }
     }
 `;
+
+export const SearchProduct = (title) => {
+    return gql`
+        query SearchProduct {
+            products(filters: {title: {contains: "${title}"}}, pagination: {limit: 25}){
+                data {
+                    ${productFields}
+                }
+            }
+        }
+    `;
+};

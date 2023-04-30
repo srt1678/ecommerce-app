@@ -10,6 +10,9 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { Complete } from "./components/TransactionPage/Complete";
 import { Failure } from "./components/TransactionPage/Failure";
 import { WishList } from "./components/WishList/WishList";
+import { Search } from "./components/SearchPage/Search";
+import { useState, createContext } from "react";
+export const AppContext = createContext();
 
 const client = new ApolloClient({
     uri: `${process.env.REACT_APP_GRAPHQL_URL}/graphql`,
@@ -20,8 +23,11 @@ const client = new ApolloClient({
 });
 
 function App() {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [clickOnSearch, setClickOnSearch] = useState(false);
 
     return (
+        <AppContext.Provider value={{searchQuery, setSearchQuery, clickOnSearch, setClickOnSearch}}>
             <BrowserRouter>
                 <ApolloProvider client={client}>
                     <NavBar />
@@ -39,10 +45,12 @@ function App() {
                         <Route exact path='/success/true' element={<Complete/>}></Route>
                         <Route exact path='/success/false' element={<Failure/>}></Route>
                         <Route path='/wishList' element={<WishList/>}></Route>
+                        <Route path='/search' element={<Search/>}></Route>
                     </Routes>
                     <Footer />
                 </ApolloProvider>
             </BrowserRouter>
+            </AppContext.Provider>
     );
 }
 

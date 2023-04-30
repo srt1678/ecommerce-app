@@ -28,6 +28,7 @@ p{
     border-radius: 1rem;
     overflow-y:scroll;
     max-height: 100vw;
+    max-width: 70vw;
 }
 .cartBoxContainer::-webkit-scrollbar{
     width: 0.5rem;
