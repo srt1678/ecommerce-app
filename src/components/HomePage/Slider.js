@@ -22,7 +22,11 @@ const imageData = [
 const Slider = () => {
     const navigate = useNavigate();
     const handleNav = (category) => {
-        navigate(`product/${category}`)
+        if(category === 'women'){
+            navigate(`/category/1`)
+        }else{
+            navigate(`/category/2`)
+        }
     }
     return (
         <>

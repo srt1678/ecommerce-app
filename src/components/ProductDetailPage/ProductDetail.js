@@ -9,7 +9,11 @@ import { useQuery } from "@apollo/client";
 import { GetProductDetail } from "../GQL/GQLProduct";
 import { IsLoading, ErrorMessage } from "../IsLoading/IsLoadingError";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, addToWishList, deleteWishList } from "../../redux/reduxReducer";
+import {
+    addToCart,
+    addToWishList,
+    deleteWishList,
+} from "../../redux/reduxReducer";
 
 export const ProductDetail = () => {
     const itemId = parseInt(useParams().id);
@@ -31,9 +35,12 @@ export const ProductDetail = () => {
     const image = [
         process.env.REACT_APP_GRAPHQL_URL +
             data?.product?.data?.attributes?.image?.data?.attributes?.url,
-        process.env.REACT_APP_GRAPHQL_URL +
-            data?.product?.data?.attributes?.image2?.data?.attributes?.url,
     ];
+    if (data?.product?.data?.attributes?.image2?.data?.attributes?.url) {
+        image[1] =
+            process.env.REACT_APP_GRAPHQL_URL +
+            data?.product?.data?.attributes?.image2?.data?.attributes?.url;
+    }
     const detailData = data?.product?.data?.attributes;
 
     const changeText = () => {
@@ -64,17 +71,19 @@ export const ProductDetail = () => {
                                             : null
                                     }
                                 />
-                                <img
-                                    className="listImage"
-                                    src={image[1]}
-                                    alt=""
-                                    onClick={() => setSelectImage(1)}
-                                    style={
-                                        selectImage === 1
-                                            ? { border: "solid 2px black" }
-                                            : null
-                                    }
-                                />
+                                {image[1] ? (
+                                    <img
+                                        className="listImage"
+                                        src={image[1]}
+                                        alt=""
+                                        onClick={() => setSelectImage(1)}
+                                        style={
+                                            selectImage === 1
+                                                ? { border: "solid 2px black" }
+                                                : null
+                                        }
+                                    />
+                                ) : null}
                             </div>
                         </Col>
                         <Col md={5} sm={8} className="mb-5">
@@ -184,13 +193,18 @@ export const ProductDetail = () => {
                                     >
                                         {inWishList ? (
                                             <div
-                                            className="favButton me-3"
-                                            onClick={() =>
-                                                dispatch(deleteWishList(data.product.data.id))
-                                            }
-                                        >
-                                            <Heartbreak className="me-2" /> REMOVE FROM WISH LIST
-                                        </div>
+                                                className="favButton me-3"
+                                                onClick={() =>
+                                                    dispatch(
+                                                        deleteWishList(
+                                                            data.product.data.id
+                                                        )
+                                                    )
+                                                }
+                                            >
+                                                <Heartbreak className="me-2" />{" "}
+                                                REMOVE FROM WISH LIST
+                                            </div>
                                         ) : (
                                             <div
                                                 className="favButton me-3"

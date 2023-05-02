@@ -11,11 +11,6 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
     try {
       const lineItems = await Promise.all(
         cartProducts.map(async (product) => {
-        /*
-          const item = await strapi
-            .service("api::product.product")
-            .findOne(product.id);
-        */
           return {
             price_data: {
               currency: "usd",
@@ -29,7 +24,6 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
         })
       );
 
-      console.log(lineItems);
       const session = await stripe.checkout.sessions.create({
         shipping_address_collection: { allowed_countries: ["US"] },
         payment_method_types: ["card"],

@@ -1,0 +1,29 @@
+.loginFormBox{
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    gap: 2rem;
+}
+.emailBox, .passwordBox{
+    background-color: transparent;
+}
+.emailInput, .passwordInput{
+    border-radius: 5px;
+    height: 2.5rem;
+    width: 17rem;
+    padding-left: 1rem;
+}
+.confirmButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 17rem;
+    height: 3rem;
+    background-color: black;
+    color: white;
+    border-radius: 5px; 
+    outline: solid 1.5px white;
+    outline-offset: -3px;
+    font-size: 1rem;
+    font-weight: 500;
+}

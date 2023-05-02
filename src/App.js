@@ -12,6 +12,7 @@ import { Failure } from "./components/TransactionPage/Failure";
 import { WishList } from "./components/WishList/WishList";
 import { Search } from "./components/SearchPage/Search";
 import { useState, createContext } from "react";
+import { User } from "./components/LoginPage/User";
 export const AppContext = createContext();
 
 const client = new ApolloClient({
@@ -25,9 +26,10 @@ const client = new ApolloClient({
 function App() {
     const [searchQuery, setSearchQuery] = useState("");
     const [clickOnSearch, setClickOnSearch] = useState(false);
+    const [signInRegisterTab, setSignInRegisterTab] = useState("signIn");
 
     return (
-        <AppContext.Provider value={{searchQuery, setSearchQuery, clickOnSearch, setClickOnSearch}}>
+        <AppContext.Provider value={{searchQuery, setSearchQuery, clickOnSearch, setClickOnSearch, signInRegisterTab, setSignInRegisterTab}}>
             <BrowserRouter>
                 <ApolloProvider client={client}>
                     <NavBar />
@@ -46,6 +48,7 @@ function App() {
                         <Route exact path='/success/false' element={<Failure/>}></Route>
                         <Route path='/wishList' element={<WishList/>}></Route>
                         <Route path='/search' element={<Search/>}></Route>
+                        <Route path='/registerLogin' element={<User/>}></Route>
                     </Routes>
                     <Footer />
                 </ApolloProvider>

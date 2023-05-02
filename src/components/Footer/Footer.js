@@ -4,8 +4,15 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import footerImg from '../img/paymentLogo.png'
 import './Footer.css'
+import { useNavigate } from "react-router-dom";
 
 export const Footer = () => {
+    const navigate = useNavigate();
+
+    const handleNav = (categoryNum) => {
+        navigate(`/category/${categoryNum}`)
+    }
+
     return (
         <div className='footer_div_container'>
             <Container className="footer_container">
@@ -15,13 +22,13 @@ export const Footer = () => {
                             <span className="categories_span_title mb-1">
                                 Categories
                             </span>
-                            <span className="categories_span mb-1">Women</span>
-                            <span className="categories_span mb-1">Men</span>
-                            <span className="categories_span mb-1">
-                                Jewelery
+                            <span className="categories_span mb-1" onClick={() => handleNav(1)}>Women</span>
+                            <span className="categories_span mb-1" onClick={() => handleNav(2)}>Men</span>
+                            <span className="categories_span mb-1" onClick={() => handleNav(3)}>
+                                Shoes
                             </span>
-                            <span className="categories_span mb-1">
-                                Electronics
+                            <span className="categories_span mb-1" onClick={() => handleNav(4)}>
+                                Accessories
                             </span>
                         </div>
                     </Col>

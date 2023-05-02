@@ -62,9 +62,9 @@ export const FixedNavBar = () => {
                             }`}
                             onClick={() => setClickOnSearch(!clickOnSearch)}
                         >
-                            <Search className="fixedIcons" />
+                            <Search className="fixedIcons"/>
                         </button>
-                        <button className="fixedIconsButton">
+                        <button className="fixedIconsButton" onClick={() => handleNavigation("registerLogin")}>
                             <Person className="fixedIcons" />
                         </button>
                         <button
