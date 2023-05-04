@@ -27,9 +27,27 @@ function App() {
     const [searchQuery, setSearchQuery] = useState("");
     const [clickOnSearch, setClickOnSearch] = useState(false);
     const [signInRegisterTab, setSignInRegisterTab] = useState("signIn");
+    const [loginAlert, setLoginAlert] = useState(false);
+    const [loginAlertType, setLoginAlertType] = useState('');
+    const [currentUser, setCurrentUser] = useState({});
 
     return (
-        <AppContext.Provider value={{searchQuery, setSearchQuery, clickOnSearch, setClickOnSearch, signInRegisterTab, setSignInRegisterTab}}>
+        <AppContext.Provider
+            value={{
+                searchQuery,
+                setSearchQuery,
+                clickOnSearch,
+                setClickOnSearch,
+                signInRegisterTab,
+                setSignInRegisterTab,
+                loginAlert,
+                setLoginAlert,
+                loginAlertType,
+                setLoginAlertType,
+                currentUser,
+                setCurrentUser
+            }}
+        >
             <BrowserRouter>
                 <ApolloProvider client={client}>
                     <NavBar />
@@ -44,16 +62,24 @@ function App() {
                             path="/product/:id"
                             element={<ProductDetail />}
                         ></Route>
-                        <Route exact path='/success/true' element={<Complete/>}></Route>
-                        <Route exact path='/success/false' element={<Failure/>}></Route>
-                        <Route path='/wishList' element={<WishList/>}></Route>
-                        <Route path='/search' element={<Search/>}></Route>
-                        <Route path='/registerLogin' element={<User/>}></Route>
+                        <Route
+                            exact
+                            path="/success/true"
+                            element={<Complete />}
+                        ></Route>
+                        <Route
+                            exact
+                            path="/success/false"
+                            element={<Failure />}
+                        ></Route>
+                        <Route path="/wishList" element={<WishList />}></Route>
+                        <Route path="/search" element={<Search />}></Route>
+                        <Route path="/registerLogin" element={<User />}></Route>
                     </Routes>
                     <Footer />
                 </ApolloProvider>
             </BrowserRouter>
-            </AppContext.Provider>
+        </AppContext.Provider>
     );
 }
 

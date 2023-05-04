@@ -4,10 +4,10 @@
     background-color: transparent;
     gap: 2rem;
 }
-.emailBox, .passwordBox{
+.firstNameBox, .lastNameBox, .emailBox, .passwordBox{
     background-color: transparent;
 }
-.emailInput, .passwordInput{
+.firstNameInput, .lastNameInput, .emailInput, .passwordInput{
     border-radius: 5px;
     height: 2.5rem;
     width: 17rem;
