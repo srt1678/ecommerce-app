@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import "./UserEnterInfoBox.css";
 import { AppContext } from "../../App";
+import { Google } from "react-bootstrap-icons";
 import { app, database } from "../../firebase/firebaseConfig";
 import {
     getAuth,
@@ -11,23 +12,24 @@ import {
 } from "firebase/auth";
 import {
     collection,
-    addDoc,
     setDoc,
     getDocs,
     doc,
-    updateDoc,
-    deleteDoc,
     query,
     where,
 } from "firebase/firestore";
-import { LoginAlert } from "./LoginAlert";
+
+export let auth = getAuth(app);
+let googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+    prompt: "select_account",
+});
 
 export const UserEnterInfoBox = () => {
     const {
         signInRegisterTab,
         setLoginAlert,
         setLoginAlertType,
-        currentUser,
         setCurrentUser,
     } = useContext(AppContext);
     const [firstName, setFirstName] = useState("");
@@ -35,10 +37,10 @@ export const UserEnterInfoBox = () => {
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
     const [registerPassword2, setRegisterPassword2] = useState("");
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
 
     const collectionRef = collection(database, "users");
-    let auth = getAuth(app);
-    let googleProvider = new GoogleAuthProvider();
 
     const handleRegistration = async () => {
         if (registerPassword !== registerPassword2) {
@@ -57,25 +59,77 @@ export const UserEnterInfoBox = () => {
                     firstName,
                     lastName,
                     email: registerEmail,
-                    password: registerPassword,
                 });
                 setCurrentUser({
-                    firstName, lastName, 
+                    firstName,
+                    lastName,
                     email: registerEmail,
-                    password: registerPassword,
-                    uid: user.user.uid
+                    uid: user.user.uid,
                 });
-                console.log(currentUser);
             } catch (err) {
                 setLoginAlert(true);
-                alert(err.message);
-                setLoginAlertType("");
+                setLoginAlertType(err.message);
             }
         } catch (err) {
             setLoginAlert(true);
-            setLoginAlertType(
-                "Email is already-in-use! Please register with another email!"
+            setLoginAlertType(err.message);
+        }
+    };
+
+    const handleSignIn = async () => {
+        try {
+            const user = await signInWithEmailAndPassword(
+                auth,
+                loginEmail,
+                loginPassword
             );
+            getUserBasicData(user.user);
+        } catch (err) {
+            setLoginAlert(true);
+            setLoginAlertType(err.message);
+        }
+    };
+
+    const getUserBasicData = async (user) => {
+        const q = query(
+            collection(database, `users`),
+            where("email", "==", user.email)
+        );
+        const querySnashot = await getDocs(q);
+        querySnashot.forEach((doc) => {
+            const { firstName, lastName, email } = doc.data();
+            setCurrentUser({
+                firstName,
+                lastName,
+                email,
+                uid: doc.id,
+            });
+        });
+    };
+
+    const signInWithGoogle = async () => {
+        try {
+            const user = await signInWithPopup(auth, googleProvider);
+            const nameArray = user.user.displayName.split(" ");
+            try {
+                setDoc(doc(collectionRef, user.user.uid), {
+                    firstName: nameArray[0],
+                    lastName: nameArray[nameArray.length - 1],
+                    email: user.user.email,
+                });
+                setCurrentUser({
+                    firstName: nameArray[0],
+                    lastName: nameArray[nameArray.length - 1],
+                    email: user.user.email,
+                    uid: user.user.uid,
+                });
+            } catch (err) {
+                setLoginAlert(true);
+                setLoginAlertType(err.message);
+            }
+        } catch (err) {
+            setLoginAlert(true);
+            setLoginAlertType(err.message);
         }
     };
 
@@ -88,6 +142,10 @@ export const UserEnterInfoBox = () => {
                             className="emailInput"
                             type="text"
                             placeholder="Email"
+                            onChange={(e) => {
+                                setLoginEmail(e.target.value);
+                                setLoginAlert(false);
+                            }}
                         ></input>
                     </div>
                     <div className="passwordBox">
@@ -95,9 +153,32 @@ export const UserEnterInfoBox = () => {
                             className="passwordInput"
                             type="password"
                             placeholder="Password"
+                            onChange={(e) => {
+                                setLoginPassword(e.target.value);
+                                setLoginAlert(false);
+                            }}
                         ></input>
                     </div>
-                    <button className="confirmButton">SIGN IN</button>
+                    <button
+                        className="confirmButton"
+                        onClick={() => handleSignIn()}
+                    >
+                        SIGN IN
+                    </button>
+                    <button
+                        className="confirmButton"
+                        onClick={() => signInWithGoogle()}
+                        style={{ gap: "1rem" }}
+                    >
+                        <Google
+                            style={{
+                                color: "white",
+                                backgroundColor: "black",
+                                fontSize: "25",
+                            }}
+                        />
+                        GOOGLE SIGN IN
+                    </button>
                 </div>
             ) : (
                 <div className="loginFormBox">

@@ -1,14 +1,24 @@
 import React, { useContext } from "react";
 import "./User.css";
 import { SignInReg } from "./SignInReg";
-import { UserEnterInfoBox } from "./UserEnterInfoBox";
+import { UserEnterInfoBox, auth } from "./UserEnterInfoBox";
 import { LoginAlert } from "./LoginAlert";
 import { AppContext } from "../../App";
+import {signOut} from "firebase/auth";
 
 export const User = () => {
-    const { loginAlert, currentUser, signInRegisterTab } =
+    const { loginAlert, setLoginAlert, setLoginAlertType, currentUser, setCurrentUser, signInRegisterTab } =
         useContext(AppContext);
-    console.log(currentUser);
+
+    const logOut = async () => {
+        try{
+            await signOut(auth)
+            setCurrentUser({});
+        }catch(err){
+            setLoginAlert(true);
+            setLoginAlertType(err.message);
+        }
+    }
     return (
         <>
             {loginAlert ? <LoginAlert /> : null}
@@ -21,7 +31,7 @@ export const User = () => {
                                   height: "29rem",
                               }
                             : signInRegisterTab === "signIn"
-                            ? { height: "23rem" }
+                            ? { height: "27rem" }
                             : { paddintTop: "0px", height: "35rem" }
                     }
                 >
@@ -36,11 +46,11 @@ export const User = () => {
                         <>
                             <div className="welcomeSignedInBox">
                                 <h5 className="welcomeText">WELCOME BACK,</h5>
-                                <h5 className="welcomeText">
+                                <h4 className="welcomeText">
                                     {"{ "}
-                                    {currentUser.firstName}
+                                    {currentUser.firstName.toUpperCase()}
                                     {" }"}
-                                </h5>
+                                </h4>
                                 <h5 className="welcomeText mb-4">
                                     YOU ARE NOW SIGNED IN!
                                 </h5>
@@ -52,7 +62,7 @@ export const User = () => {
                                     Don't miss the limited time offer! Up to 25%
                                     Off!
                                 </span>
-                                <button className="signOutButton">
+                                <button className="signOutButton" onClick={() => logOut()}>
                                     SIGN OUT
                                 </button>
                             </div>
