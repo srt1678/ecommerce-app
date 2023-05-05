@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AppContext } from "../../App";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -14,6 +15,8 @@ import {
     addToWishList,
     deleteWishList,
 } from "../../redux/reduxReducer";
+import { addToCartToFirebase } from "../../firebase/FirebaseFunctions";
+import { LoginAlert } from "../LoginPage/LoginAlert";
 
 export const ProductDetail = () => {
     const itemId = parseInt(useParams().id);
@@ -24,6 +27,8 @@ export const ProductDetail = () => {
     const initialAddToCartText = "ADD TO CART";
     const [addToCartText, setAddToCartText] = useState(initialAddToCartText);
     const wishList = useSelector((state) => state.cart.wishList);
+    const { currentUser, loginAlert, setLoginAlert, setLoginAlertType } =
+        useContext(AppContext);
 
     const dispatch = useDispatch();
     const { loading, error, data } = useQuery(GetProductDetail, {
@@ -32,6 +37,7 @@ export const ProductDetail = () => {
     if (error) {
         <ErrorMessage />;
     }
+
     const image = [
         process.env.REACT_APP_GRAPHQL_URL +
             data?.product?.data?.attributes?.image?.data?.attributes?.url,
@@ -44,15 +50,19 @@ export const ProductDetail = () => {
     const detailData = data?.product?.data?.attributes;
 
     const changeText = () => {
-        setAddToCartText("IS NOW ADDED!");
-        setTimeout(() => setAddToCartText(initialAddToCartText), [3000]);
+        if (Object.keys(currentUser).length !== 0) {
+            setAddToCartText("IS NOW ADDED!");
+            setTimeout(() => setAddToCartText(initialAddToCartText), [3000]);
+        }
     };
 
     const inWishList = wishList.find(
         (item) => item.id === data?.product?.data.id
     );
+
     return (
         <>
+            {loginAlert ? <LoginAlert /> : null}
             {loading ? (
                 <IsLoading />
             ) : (
@@ -163,17 +173,16 @@ export const ProductDetail = () => {
                                                 : { pointerEvent: "auto" }
                                         }
                                         onClick={() => {
-                                            dispatch(
-                                                addToCart({
-                                                    id: data.product.data.id,
-                                                    title: detailData.title,
-                                                    description:
-                                                        detailData.description,
-                                                    price: detailData.newPrice,
-                                                    image: image[0],
-                                                    quantity,
-                                                    selectSize,
-                                                })
+                                            addToCartToFirebase(
+                                                data,
+                                                detailData,
+                                                image,
+                                                currentUser,
+                                                selectSize,
+                                                quantity,
+                                                setLoginAlertType,
+                                                setLoginAlert,
+                                                dispatch
                                             );
                                             changeText();
                                         }}

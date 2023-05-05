@@ -68,9 +68,14 @@ export const reduxSlice = createSlice({
             state.wishList = state.wishList.filter(
                 (singleItem) => singleItem.id !== action.payload
             );
+        },
+        emptyAll: (state, action) => {
+            state.products = [];
+            state.size = [];
+            state.wishList = [];
         }
     },
 });
 
-export const { addToCart, deleteItem, resetCart, addToWishList, deleteWishList } = reduxSlice.actions;
+export const { addToCart, deleteItem, resetCart, addToWishList, deleteWishList, emptyAll } = reduxSlice.actions;
 export default reduxSlice.reducer;

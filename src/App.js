@@ -13,6 +13,8 @@ import { WishList } from "./components/WishList/WishList";
 import { Search } from "./components/SearchPage/Search";
 import { useState, createContext } from "react";
 import { User } from "./components/LoginPage/User";
+import { useDispatch } from "react-redux";
+import { emptyAll } from "./redux/reduxReducer";
 export const AppContext = createContext();
 
 const client = new ApolloClient({
@@ -28,9 +30,11 @@ function App() {
     const [clickOnSearch, setClickOnSearch] = useState(false);
     const [signInRegisterTab, setSignInRegisterTab] = useState("signIn");
     const [loginAlert, setLoginAlert] = useState(false);
-    const [loginAlertType, setLoginAlertType] = useState('');
+    const [loginAlertType, setLoginAlertType] = useState("");
     const [currentUser, setCurrentUser] = useState({});
+    const dispatch = useDispatch();
 
+    dispatch(emptyAll());
     return (
         <AppContext.Provider
             value={{

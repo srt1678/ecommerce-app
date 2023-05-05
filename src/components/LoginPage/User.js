@@ -1,24 +1,21 @@
 import React, { useContext } from "react";
 import "./User.css";
 import { SignInReg } from "./SignInReg";
-import { UserEnterInfoBox, auth } from "./UserEnterInfoBox";
+import { UserEnterInfoBox } from "./UserEnterInfoBox";
 import { LoginAlert } from "./LoginAlert";
 import { AppContext } from "../../App";
-import {signOut} from "firebase/auth";
+import { logOut } from "../../firebase/FirebaseFunctions";
 
 export const User = () => {
-    const { loginAlert, setLoginAlert, setLoginAlertType, currentUser, setCurrentUser, signInRegisterTab } =
-        useContext(AppContext);
+    const {
+        loginAlert,
+        setLoginAlert,
+        setLoginAlertType,
+        currentUser,
+        setCurrentUser,
+        signInRegisterTab,
+    } = useContext(AppContext);
 
-    const logOut = async () => {
-        try{
-            await signOut(auth)
-            setCurrentUser({});
-        }catch(err){
-            setLoginAlert(true);
-            setLoginAlertType(err.message);
-        }
-    }
     return (
         <>
             {loginAlert ? <LoginAlert /> : null}
@@ -62,7 +59,16 @@ export const User = () => {
                                     Don't miss the limited time offer! Up to 25%
                                     Off!
                                 </span>
-                                <button className="signOutButton" onClick={() => logOut()}>
+                                <button
+                                    className="signOutButton"
+                                    onClick={() =>
+                                        logOut(
+                                            setCurrentUser,
+                                            setLoginAlert,
+                                            setLoginAlertType
+                                        )
+                                    }
+                                >
                                     SIGN OUT
                                 </button>
                             </div>
