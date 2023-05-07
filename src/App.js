@@ -11,7 +11,7 @@ import { Complete } from "./components/TransactionPage/Complete";
 import { Failure } from "./components/TransactionPage/Failure";
 import { WishList } from "./components/WishList/WishList";
 import { Search } from "./components/SearchPage/Search";
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { User } from "./components/LoginPage/User";
 import { useDispatch } from "react-redux";
 import { emptyAll } from "./redux/reduxReducer";
@@ -34,7 +34,16 @@ function App() {
     const [currentUser, setCurrentUser] = useState({});
     const dispatch = useDispatch();
 
-    dispatch(emptyAll());
+    useEffect(() => {
+        dispatch(emptyAll());
+    }, [])
+
+    useEffect(() => {
+        if(Object.keys(currentUser).length === 0){
+            dispatch(emptyAll());
+        }
+    }, [currentUser])
+    
     return (
         <AppContext.Provider
             value={{

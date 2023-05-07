@@ -10,20 +10,21 @@ import { useQuery } from "@apollo/client";
 import { GetProductDetail } from "../GQL/GQLProduct";
 import { IsLoading, ErrorMessage } from "../IsLoading/IsLoadingError";
 import { useSelector, useDispatch } from "react-redux";
+import { deleteWishList } from "../../redux/reduxReducer";
 import {
-    addToCart,
-    addToWishList,
-    deleteWishList,
-} from "../../redux/reduxReducer";
-import { addToCartToFirebase } from "../../firebase/FirebaseFunctions";
+    addToWishListToFirebase,
+    addToCartToFirebase,
+    deleteItemFromWishListFirebase,
+} from "../../firebase/FirebaseStripe";
 import { LoginAlert } from "../LoginPage/LoginAlert";
+import { StandardSize } from "./StandardSize";
+import { QuantityButton } from './QuantityButton'
 
 export const ProductDetail = () => {
     const itemId = parseInt(useParams().id);
     const [selectImage, setSelectImage] = useState(0);
     const [quantity, setQuantity] = useState(0);
     const [selectSize, setSelectSize] = useState("L");
-    const standardSizes = ["XS", "S", "M", "L", "XL", "XXL"];
     const initialAddToCartText = "ADD TO CART";
     const [addToCartText, setAddToCartText] = useState(initialAddToCartText);
     const wishList = useSelector((state) => state.cart.wishList);
@@ -133,32 +134,7 @@ export const ProductDetail = () => {
                                     Color: {detailData.color}
                                 </h5>
                                 <div className="quantityLine mb-4">
-                                    <button
-                                        className="quantityButton"
-                                        style={
-                                            quantity === 0
-                                                ? {
-                                                      pointerEvents: "none",
-                                                      backgroundColor:
-                                                          "rgb(238, 238, 238)",
-                                                  }
-                                                : { pointerEvents: "auto" }
-                                        }
-                                        onClick={() =>
-                                            setQuantity(quantity - 1)
-                                        }
-                                    >
-                                        -
-                                    </button>
-                                    <h4 className="quantityNum">{quantity}</h4>
-                                    <button
-                                        className="quantityButton"
-                                        onClick={() =>
-                                            setQuantity(quantity + 1)
-                                        }
-                                    >
-                                        +
-                                    </button>
+                                    <QuantityButton quantity={quantity} setQuantity={setQuantity}/>
                                 </div>
                                 <div className="mb-4">
                                     <button
@@ -207,13 +183,17 @@ export const ProductDetail = () => {
                                         {inWishList ? (
                                             <div
                                                 className="favButton me-3"
-                                                onClick={() =>
+                                                onClick={() => {
                                                     dispatch(
                                                         deleteWishList(
                                                             data.product.data.id
                                                         )
-                                                    )
-                                                }
+                                                    );
+                                                    deleteItemFromWishListFirebase(
+                                                        currentUser,
+                                                        data.product.data.id
+                                                    );
+                                                }}
                                             >
                                                 <Heartbreak className="me-2" />{" "}
                                                 REMOVE FROM WISH LIST
@@ -222,19 +202,18 @@ export const ProductDetail = () => {
                                             <div
                                                 className="favButton me-3"
                                                 onClick={() => {
-                                                    dispatch(
-                                                        addToWishList({
-                                                            id: data.product
-                                                                .data.id,
-                                                            title: detailData.title,
-                                                            oldPrice:
-                                                                detailData.oldPrice,
-                                                            newPrice:
-                                                                detailData.newPrice,
-                                                            image1: image[0],
-                                                            image2: image[1],
-                                                            isNew: detailData.isNew,
-                                                        })
+                                                    addToWishListToFirebase(
+                                                        data.product.data.id,
+                                                        detailData.title,
+                                                        detailData.oldPrice,
+                                                        detailData.newPrice,
+                                                        image[0],
+                                                        image[1],
+                                                        detailData.isNew,
+                                                        setLoginAlertType,
+                                                        setLoginAlert,
+                                                        currentUser,
+                                                        dispatch
                                                     );
                                                 }}
                                             >
@@ -258,36 +237,7 @@ export const ProductDetail = () => {
                                 </div>
                                 <hr />
                                 <div className="selectSizesContainer">
-                                    {standardSizes.map((singleSize) => {
-                                        return (
-                                            <button
-                                                className="sizeButton"
-                                                key={singleSize}
-                                                onClick={() =>
-                                                    setSelectSize(singleSize)
-                                                }
-                                                style={
-                                                    selectSize === singleSize
-                                                        ? {
-                                                              backgroundColor:
-                                                                  "black",
-                                                              color: "white",
-                                                              outline:
-                                                                  "solid 1.5px white",
-                                                          }
-                                                        : {
-                                                              backgroundColor:
-                                                                  "rgb(218, 217, 217)",
-                                                              border: "solid 1.5px black",
-                                                              outline:
-                                                                  "solid 1.5px black",
-                                                          }
-                                                }
-                                            >
-                                                {singleSize}
-                                            </button>
-                                        );
-                                    })}
+                                    <StandardSize setSelectSize={setSelectSize} selectSize={selectSize}/>
                                 </div>
                                 <hr />
                                 <div className="moreDetail">

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteItem, resetCart } from "../../redux/reduxReducer";
 import { loadStripe } from "@stripe/stripe-js";
 import { createRequest } from "../../createRequest";
-import { deleteItemFromCartFirebase } from "../../firebase/FirebaseFunctions";
+import { deleteItemFromCartFirebase } from "../../firebase/FirebaseStripe";
 
 export const CartBox = () => {
     const cartProducts = useSelector((state) => state.cart.products);
@@ -31,7 +31,7 @@ export const CartBox = () => {
                 sessionId: response.data.stripeSession.id,
             });
         } catch (err) {
-            console.log(err);
+            alert(err);
         }
     };
     return (

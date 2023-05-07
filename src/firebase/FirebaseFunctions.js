@@ -11,12 +11,11 @@ import {
     collection,
     setDoc,
     getDocs,
-    deleteDoc,
     doc,
     query,
     where,
 } from "firebase/firestore";
-import { addToCart } from "../redux/reduxReducer";
+import { addItemToCartBackEnd, addItemToWishListBackEnd } from './FirebaseStripe';
 
 let auth = getAuth(app);
 let googleProvider = new GoogleAuthProvider();
@@ -85,6 +84,7 @@ export const handleSignIn = async (
         );
         getUserBasicData(user.user, setCurrentUser);
         getUserCartList(user, dispatch);
+        getUserWishList(user, dispatch);
     } catch (err) {
         setLoginAlert(true);
         setLoginAlertType(err.message);
@@ -117,6 +117,17 @@ const getUserCartList = async (user, dispatch) => {
         });
     });
 };
+
+const getUserWishList = async (user, dispatch) => {
+    const q = query(collection(database, `users/${user.user.uid}/wishList`));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (doc) => {
+        const {title, oldPrice, newPrice, image1, image2, isNew} = doc.data();
+        addItemToWishListBackEnd(
+            doc.id, title, oldPrice, newPrice, image1, image2, isNew, dispatch
+        )
+    })
+}
 
 const getUserBasicData = async (user, setCurrentUser) => {
     const q = query(
@@ -179,121 +190,4 @@ export const logOut = async (
     }
 };
 
-export const addToCartToFirebase = async (
-    data,
-    detailData,
-    image,
-    currentUser,
-    selectSize,
-    quantity,
-    setLoginAlertType,
-    setLoginAlert,
-    dispatch
-) => {
-    if (Object.keys(currentUser).length === 0) {
-        setLoginAlertType("Error! Please sign in first!");
-        setLoginAlert(true);
-    } else {
-        try {
-            setDoc(
-                doc(
-                    collectionRef,
-                    `${currentUser.uid}/cartList/${data.product.data.id}`
-                ),
-                {
-                    title: detailData.title,
-                    description: detailData.description,
-                    price: detailData.newPrice,
-                    image: image[0],
-                }
-            );
-            const sizeCount = await sizeExistCount(
-                data,
-                currentUser,
-                selectSize
-            );
-            setDoc(
-                doc(
-                    collectionRef,
-                    `${currentUser.uid}/cartList/${data.product.data.id}/size/${selectSize}`
-                ),
-                { quantity: sizeCount + quantity }
-            );
-            addItemToCartBackEnd(
-                data.product.data.id,
-                detailData.title,
-                detailData.description,
-                detailData.newPrice,
-                image[0],
-                quantity,
-                selectSize,
-                dispatch
-            );
-        } catch (err) {
-            setLoginAlertType(err.message);
-            setLoginAlert(true);
-        }
-    }
-};
 
-const sizeExistCount = async (data, currentUser, selectSize) => {
-    const docRef = query(
-        collection(
-            database,
-            `users/${currentUser.uid}/cartList/${data.product.data.id}/size`
-        )
-    );
-    const documentList = await getDocs(docRef);
-    let count = 0;
-    documentList.forEach((doc) => {
-        if (doc.id === selectSize) {
-            count = doc.data().quantity;
-        }
-    });
-    return count;
-};
-
-const addItemToCartBackEnd = (
-    id,
-    title,
-    description,
-    price,
-    image,
-    quantity,
-    selectSize,
-    dispatch
-) => {
-    dispatch(
-        addToCart({
-            id,
-            title,
-            description,
-            price,
-            image,
-            quantity,
-            selectSize,
-        })
-    );
-};
-
-export const deleteItemFromCartFirebase = async (currentUser, singleItemId) => {
-    const q = query(
-        collection(
-            database,
-            `users/${currentUser.uid}/cartList/${singleItemId}/size`
-        )
-    );
-    const querySnashot = await getDocs(q);
-    querySnashot.forEach(async (sizeDoc) => {
-        await deleteDoc(
-            doc(
-                database,
-                `users/${currentUser.uid}/cartList/${singleItemId}/size`,
-                `${sizeDoc.id}`
-            )
-        );
-    });
-    await deleteDoc(
-        doc(database, `users/${currentUser.uid}/cartList/${singleItemId}`)
-    );
-};

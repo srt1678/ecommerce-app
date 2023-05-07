@@ -69,7 +69,7 @@ export const reduxSlice = createSlice({
                 (singleItem) => singleItem.id !== action.payload
             );
         },
-        emptyAll: (state, action) => {
+        emptyAll: (state) => {
             state.products = [];
             state.size = [];
             state.wishList = [];
