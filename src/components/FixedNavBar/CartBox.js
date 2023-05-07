@@ -1,15 +1,18 @@
-import React from "react";
+import React, {useContext} from "react";
+import { AppContext } from "../../App";
 import "./CartBox.css";
 import { Trash } from "react-bootstrap-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteItem, resetCart } from "../../redux/reduxReducer";
 import { loadStripe } from "@stripe/stripe-js";
 import { createRequest } from "../../createRequest";
+import { deleteItemFromCartFirebase } from "../../firebase/FirebaseFunctions";
 
 export const CartBox = () => {
     const cartProducts = useSelector((state) => state.cart.products);
     const sizeReducer = useSelector((state) => state.cart.size);
     const dispatch = useDispatch();
+    const { currentUser } = useContext(AppContext);
 
     const totalPrice = () => {
         let total = 0;
@@ -97,9 +100,10 @@ export const CartBox = () => {
                         <div>
                             <Trash
                                 className="trashIcon"
-                                onClick={() =>
-                                    dispatch(deleteItem(singleItem.id))
-                                }
+                                onClick={() => {
+                                    dispatch(deleteItem(singleItem.id));
+                                    deleteItemFromCartFirebase(currentUser, singleItem.id);
+                                }}
                             />
                         </div>
                     </div>

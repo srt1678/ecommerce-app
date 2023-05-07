@@ -11,6 +11,7 @@ import {
     collection,
     setDoc,
     getDocs,
+    deleteDoc,
     doc,
     query,
     where,
@@ -272,5 +273,27 @@ const addItemToCartBackEnd = (
             quantity,
             selectSize,
         })
+    );
+};
+
+export const deleteItemFromCartFirebase = async (currentUser, singleItemId) => {
+    const q = query(
+        collection(
+            database,
+            `users/${currentUser.uid}/cartList/${singleItemId}/size`
+        )
+    );
+    const querySnashot = await getDocs(q);
+    querySnashot.forEach(async (sizeDoc) => {
+        await deleteDoc(
+            doc(
+                database,
+                `users/${currentUser.uid}/cartList/${singleItemId}/size`,
+                `${sizeDoc.id}`
+            )
+        );
+    });
+    await deleteDoc(
+        doc(database, `users/${currentUser.uid}/cartList/${singleItemId}`)
     );
 };

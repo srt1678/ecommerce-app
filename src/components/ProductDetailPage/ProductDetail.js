@@ -142,7 +142,7 @@ export const ProductDetail = () => {
                                                       backgroundColor:
                                                           "rgb(238, 238, 238)",
                                                   }
-                                                : { pointerEvent: "auto" }
+                                                : { pointerEvents: "auto" }
                                         }
                                         onClick={() =>
                                             setQuantity(quantity - 1)
@@ -170,7 +170,11 @@ export const ProductDetail = () => {
                                                       backgroundColor:
                                                           "rgb(74, 74, 74)",
                                                   }
-                                                : { pointerEvent: "auto" }
+                                                : {
+                                                      outline:
+                                                          "solid 1.5px white",
+                                                      outlineOffset: "-3px",
+                                                  }
                                         }
                                         onClick={() => {
                                             addToCartToFirebase(
