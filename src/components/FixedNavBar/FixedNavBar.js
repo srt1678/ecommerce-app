@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./FixedNavBar.css";
-import { PlusLg, Search, Person, Heart, Cart } from "react-bootstrap-icons";
+import { PlusLg, Search, Person, Heart, Cart, Grid } from "react-bootstrap-icons";
 import { CartBox } from "./CartBox";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -63,6 +63,9 @@ export const FixedNavBar = () => {
                             onClick={() => setClickOnSearch(!clickOnSearch)}
                         >
                             <Search className="fixedIcons"/>
+                        </button>
+                        <button className="fixedIconsButton" onClick={() => handleNavigation("comparison")}>
+                            <Grid className="fixedIcons" />
                         </button>
                         <button className="fixedIconsButton" onClick={() => handleNavigation("registerLogin")}>
                             <Person className="fixedIcons" />

@@ -15,7 +15,7 @@
 .resetButton > span {
     background-color: white;
 }
-p{
+p {
     color: rgb(119, 118, 118);
 }
 .cartBoxContainer {
@@ -26,22 +26,21 @@ p{
     background-color: white;
     padding: 20px;
     border-radius: 1rem;
-    overflow-y:scroll;
+    overflow-y: scroll;
     max-height: 100vw;
     max-width: 70vw;
 }
-.cartBoxContainer::-webkit-scrollbar{
+.cartBoxContainer::-webkit-scrollbar {
     width: 0.5rem;
     height: 10px;
 }
 .cartBoxContainer::-webkit-scrollbar-thumb {
     background: #d3d3d3;
     border-radius: 5px;
-    
-  }
-  .cartBoxContainer::-webkit-scrollbar-thumb:hover {
+}
+.cartBoxContainer::-webkit-scrollbar-thumb:hover {
     background: #aaa9a9;
-  }
+}
 .cartBoxContainer > h4 {
     font-weight: 400;
 }
@@ -57,11 +56,11 @@ p{
 .details > h5 {
     font-weight: 400;
 }
-.priceAndSize{
+.priceAndSize {
     display: flex;
     gap: 1rem;
 }
-.sizeList{
+.sizeList {
     display: flex;
     gap: 0.5rem;
 }
@@ -75,18 +74,18 @@ p{
     font-size: 20px;
     cursor: pointer;
 }
-.totalPrice{
+.totalPrice {
     display: flex;
     justify-content: space-between;
     font-size: 1.2rem;
     font-weight: 500;
 }
-.checkoutButtonContainer{
+.checkoutButtonContainer {
     display: flex;
     justify-content: center;
     background-color: white;
 }
-.checkoutButton{
+.checkoutButton {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,13 +98,13 @@ p{
     outline: solid 1.5px white;
     outline-offset: -3px;
 }
-.resetCart{
+.resetCart {
     color: red;
     cursor: pointer;
     font-weight: 500;
 }
 @media screen and (max-width: 992px) {
-    .cartBoxContainer{
+    .cartBoxContainer {
         right: 4rem;
         margin-left: 1rem;
     }

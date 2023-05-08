@@ -1,7 +1,7 @@
 .fixedNavBarContainer {
     background-color: rgba(66, 66, 66, 0.2);
-    height: 3rem;
-    width: 13rem;
+    height: 3.2rem;
+    width: 15rem;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -11,12 +11,14 @@
     z-index: 1000;
     border-radius: 2rem;
     backdrop-filter: blur(10px);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 .fixedIconsButton {
     background-color: transparent;
     width: 20%;
     height: 85%;
-    border-radius: 3rem;
+    border-radius: 4rem;
     transition: 0.3s ease-in-out;
 }
 .fixedIconsButton:hover {
@@ -47,27 +49,29 @@
     font-weight: 500;
 }
 .wishListNum {
-    right: 3.7rem;
+    right: 3.4rem;
 }
 .searchBarContainer{
     margin-right: 1rem;
     background-color: transparent;
 }
 .searchBar{
-    width: 7.75rem;
+    width: 9.5rem;
     border-radius: 10px;
     background-color: rgb(248, 248, 241);
     padding-left: 1rem;
     padding-right: 1rem;
     height: 2rem;
+    margin-left: 0.5rem;
 }
 @media screen and (max-width: 992px) {
     .fixedNavBarContainer {
         flex-direction: column;
-        height: 13rem;
-        width: 3rem;
+        height: 15rem;
+        width: 3.2rem;
         top: 8rem;
         right: 0.5rem;
+        padding: 0.5rem 0px;
     }
     .fixedIconsButton {
         width: 85%;
@@ -77,11 +81,11 @@
         font-size: 20px;
     }
     .wishListNum {
-        top: 7rem;
+        top: 9.2rem;
         right: 4px;
     }
     .cartNum {
-        top: 10rem;
+        top: 12rem;
         right: 4px;
     }
     .searchBarContainer{

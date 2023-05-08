@@ -18,7 +18,7 @@ import {
 } from "../../firebase/FirebaseStripe";
 import { LoginAlert } from "../LoginPage/LoginAlert";
 import { StandardSize } from "./StandardSize";
-import { QuantityButton } from './QuantityButton'
+import { QuantityButton } from "./QuantityButton";
 
 export const ProductDetail = () => {
     const itemId = parseInt(useParams().id);
@@ -28,8 +28,14 @@ export const ProductDetail = () => {
     const initialAddToCartText = "ADD TO CART";
     const [addToCartText, setAddToCartText] = useState(initialAddToCartText);
     const wishList = useSelector((state) => state.cart.wishList);
-    const { currentUser, loginAlert, setLoginAlert, setLoginAlertType } =
-        useContext(AppContext);
+    const {
+        currentUser,
+        loginAlert,
+        setLoginAlert,
+        setLoginAlertType,
+        comparisonArray,
+        setComparisonArray,
+    } = useContext(AppContext);
 
     const dispatch = useDispatch();
     const { loading, error, data } = useQuery(GetProductDetail, {
@@ -56,10 +62,38 @@ export const ProductDetail = () => {
             setTimeout(() => setAddToCartText(initialAddToCartText), [3000]);
         }
     };
+    const handleAddComparison = () => {
+        const comparisonObj = {
+            id: data.product.data.id,
+            title: detailData.title,
+            price: detailData.newPrice,
+            color: detailData.color,
+            image: image[0],
+            material: detailData.additionalInfo,
+        };
+        setComparisonArray((comparisonArray) => [
+            ...comparisonArray,
+            comparisonObj,
+        ]);
+    };
+    const handleRemoveComparison = () => {
+        setComparisonArray(
+            comparisonArray.filter((product) => product.id != itemId)
+        );
+    };
 
     const inWishList = wishList.find(
         (item) => item.id === data?.product?.data.id
     );
+    let inComparison = false;
+    const findComparison = () => {
+        comparisonArray.map((obj) => {
+            if (obj.id == itemId) {
+                inComparison = true;
+            }
+        });
+    };
+    findComparison();
 
     return (
         <>
@@ -134,7 +168,10 @@ export const ProductDetail = () => {
                                     Color: {detailData.color}
                                 </h5>
                                 <div className="quantityLine mb-4">
-                                    <QuantityButton quantity={quantity} setQuantity={setQuantity}/>
+                                    <QuantityButton
+                                        quantity={quantity}
+                                        setQuantity={setQuantity}
+                                    />
                                 </div>
                                 <div className="mb-4">
                                     <button
@@ -229,15 +266,40 @@ export const ProductDetail = () => {
                                             textDecoration: "inherit",
                                         }}
                                     >
-                                        <div className="compareButton">
-                                            <Grid className="me-1" /> ADD TO
-                                            COMPARE
-                                        </div>
+                                        {inComparison ? (
+                                            <div
+                                                className="compareButton"
+                                                onClick={() => {
+                                                    handleRemoveComparison();
+                                                }}
+                                            >
+                                                <Grid className="me-1" /> REMOVE
+                                                FROM COMPARE
+                                            </div>
+                                        ) : comparisonArray.length < 5 ? (
+                                            <div
+                                                className="compareButton"
+                                                onClick={() => {
+                                                    handleAddComparison();
+                                                }}
+                                            >
+                                                <Grid className="me-1" /> ADD TO
+                                                COMPARE
+                                            </div>
+                                        ) : (
+                                            <div className="compareButton" style={{cursor: 'default', color: 'red'}}>
+                                                <Grid className="me-1" /> COMPARISON EXCEED
+                                                MAXIUM
+                                            </div>
+                                        )}
                                     </Link>
                                 </div>
                                 <hr />
                                 <div className="selectSizesContainer">
-                                    <StandardSize setSelectSize={setSelectSize} selectSize={selectSize}/>
+                                    <StandardSize
+                                        setSelectSize={setSelectSize}
+                                        selectSize={selectSize}
+                                    />
                                 </div>
                                 <hr />
                                 <div className="moreDetail">

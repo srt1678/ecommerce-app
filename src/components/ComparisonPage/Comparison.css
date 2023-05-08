@@ -1,0 +1,40 @@
+.comparisonContainer{
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1rem 3rem 1rem;
+    overflow-x: scroll;
+    transition: 0.5s ease-in-out;
+}
+.comparisonContainer::-webkit-scrollbar{
+    height: 0.5rem;
+}
+.comparisonContainer::-webkit-scrollbar-thumb{
+    background: rgba(66, 66, 66, 0.2);
+    border-radius: 10px;
+}
+.comparisonContainer::-webkit-scrollbar-thumb:hover{
+    background: rgb(116, 115, 115); 
+}
+.cardOverallContainer:first-child{
+    margin-left: auto;
+}
+.cardOverallContainer:last-child{
+    margin-right: auto;
+}
+.cardOverallContainer:hover{
+    cursor: pointer;
+    transform: scale(1.01) !important;
+}
+.comparisonCard{
+    width: 18rem;
+    height: 43rem;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 15px rgb(114, 114, 114);
+}
+.cardImage{
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+.comparisonCardBody{
+    border-radius: 1rem;
+}
