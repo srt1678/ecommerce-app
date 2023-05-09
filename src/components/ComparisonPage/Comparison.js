@@ -9,31 +9,50 @@ export const Comparison = () => {
     const navigate = useNavigate();
     const handleNav = (productId) => {
         navigate(`/product/${productId}`);
-    }
+    };
 
     return (
-        <div className="comparisonContainer">
-            {comparisonArray.map((product) => {
-                return (
-                    <div className="cardOverallContainer" key={product.id}>
-                        <Card className="comparisonCard" onClick={() => handleNav(product.id)}>
-                            <Card.Img variant="top" className='cardImage' src={product.image} />
-                            <Card.Body className="comparisonCardBody">
-                                <Card.Title style={{height: '3rem'}}>
-                                    {product.title}
-                                </Card.Title>
-                                <hr />
-                                <Card.Text>${product.price}</Card.Text>
-                                <hr />
-                                <Card.Text>{product.color}</Card.Text>
-                                <hr />
-                                <Card.Text>{product.material}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </div>
-                );
-            })}
-        </div>
+        <>
+            {comparisonArray.length === 0 ? (
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} className='my-5'>
+                    <h4>ADD PRODUCTS FOR COMPARISON</h4>
+                </div>
+            ) : (
+                <div className="comparisonContainer">
+                    {comparisonArray.map((product) => {
+                        return (
+                            <div
+                                className="cardOverallContainer"
+                                key={product.id}
+                            >
+                                <Card
+                                    className="comparisonCard"
+                                    onClick={() => handleNav(product.id)}
+                                >
+                                    <Card.Img
+                                        variant="top"
+                                        className="cardImage"
+                                        src={product.image}
+                                    />
+                                    <Card.Body className="comparisonCardBody">
+                                        <Card.Title style={{ height: "3rem" }}>
+                                            {product.title}
+                                        </Card.Title>
+                                        <hr />
+                                        <Card.Text>${product.price}</Card.Text>
+                                        <hr />
+                                        <Card.Text>{product.color}</Card.Text>
+                                        <hr />
+                                        <Card.Text>
+                                            {product.material}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
+        </>
     );
 };
