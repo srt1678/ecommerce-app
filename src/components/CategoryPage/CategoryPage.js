@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import { useQuery } from "@apollo/client";
 import { GetSubCategory } from "../GQL/GQLProduct";
 import { IsLoading, ErrorMessage } from "../IsLoading/IsLoadingError";
+import { FilterItem } from "./FilterItem";
 
 export const CategoryPage = () => {
     const category_ID = parseInt(useParams().categoryID);
@@ -32,6 +33,28 @@ export const CategoryPage = () => {
     return (
         <div className="products mt-3">
             <Container fluid>
+                <Row>
+                    <Col>
+                        {loading ? (
+                            <IsLoading />
+                        ) : (
+                            <div style={{ position: "relative" }}>
+                                <div className="sliderImageContainer">
+                                    <img
+                                        className="slider_image"
+                                        src={
+                                            process.env.REACT_APP_GRAPHQL_URL +
+                                            data?.categories?.data[0]
+                                                ?.attributes?.category_image
+                                                ?.data?.attributes?.url
+                                        }
+                                        alt=""
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </Col>
+                </Row>
                 <Row>
                     <Col xxl={2}>
                         <div className="left">
@@ -67,106 +90,19 @@ export const CategoryPage = () => {
                                     )
                                 )}
                             </div>
-                            <div className="filterItem">
-                                <h5>Filter by price</h5>
-                                <div className="inputItem">
-                                    <input
-                                        type="radio"
-                                        name="price"
-                                        onChange={(e) => setMaxPrice(100)}
-                                    />
-                                    <label htmlFor="asc">{"< $100"}</label>
-                                </div>
-                                <div className="inputItem">
-                                    <input
-                                        type="radio"
-                                        name="price"
-                                        onChange={(e) => setMaxPrice(200)}
-                                    />
-                                    <label htmlFor="desc">{"< $200"}</label>
-                                </div>
-                                <div className="inputItem">
-                                    <input
-                                        type="radio"
-                                        name="price"
-                                        onChange={(e) => setMaxPrice(300)}
-                                    />
-                                    <label htmlFor="desc">{"< $300"}</label>
-                                </div>
-                                <div className="inputItem">
-                                    <input
-                                        type="radio"
-                                        name="price"
-                                        onChange={(e) => setMaxPrice(400)}
-                                    />
-                                    <label htmlFor="desc">{"< $400"}</label>
-                                </div>
-                                <div className="inputItem">
-                                    <input
-                                        type="radio"
-                                        name="price"
-                                        onChange={(e) => setMaxPrice(500)}
-                                    />
-                                    <label htmlFor="desc">{"< $500"}</label>
-                                </div>
-                            </div>
-                            <div className="filterItem">
-                                <h5>Sort by</h5>
-                                <div className="inputItem">
-                                    <input
-                                        type="radio"
-                                        id="asc"
-                                        value="asc"
-                                        name="price"
-                                        onChange={(e) => setSort("up")}
-                                    />
-                                    <label htmlFor="asc">
-                                        Price (Lowest first)
-                                    </label>
-                                </div>
-                                <div className="inputItem">
-                                    <input
-                                        type="radio"
-                                        id="desc"
-                                        value="desc"
-                                        name="price"
-                                        onChange={(e) => setSort("down")}
-                                    />
-                                    <label htmlFor="desc">
-                                        Price (Highest first)
-                                    </label>
-                                </div>
-                            </div>
+                            <FilterItem
+                                setMaxPrice={setMaxPrice}
+                                setSort={setSort}
+                            />
                         </div>
                     </Col>
                     <Col xxl={10}>
-                        <div className="right">
-                            {loading ? (
-                                <IsLoading />
-                            ) : (
-                                <div style={{ position: "relative" }}>
-                                    <div>
-                                        <img
-                                            className="slider_image"
-                                            src={
-                                                process.env
-                                                    .REACT_APP_GRAPHQL_URL +
-                                                data?.categories?.data[0]
-                                                    ?.attributes?.category_image
-                                                    ?.data?.attributes?.url
-                                            }
-                                            alt=""
-                                        />
-                                    </div>
-                                </div>
-                            )}
-                            <List
-                                category_ID={category_ID}
-                                maxPrice={maxPrice}
-                                sort={sort}
-                                selectSubCategory={selectSubCategory}
-                            />
-                        </div>
+                        <List
+                            category_ID={category_ID}
+                            maxPrice={maxPrice}
+                            sort={sort}
+                            selectSubCategory={selectSubCategory}
+                        />
                     </Col>
                 </Row>
             </Container>

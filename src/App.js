@@ -1,19 +1,8 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home } from "./components/HomePage/Home";
-import { CategoryPage } from "./components/CategoryPage/CategoryPage";
-import { ProductDetail } from "./components/ProductDetailPage/ProductDetail";
-import { NavBar } from "./components/NavBar/NavBar";
-import { FixedNavBar } from "./components/FixedNavBar/FixedNavBar";
-import { Footer } from "./components/Footer/Footer";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { Complete } from "./components/TransactionPage/Complete";
-import { Failure } from "./components/TransactionPage/Failure";
-import { WishList } from "./components/WishList/WishList";
-import { Search } from "./components/SearchPage/Search";
-import { Comparison } from "./components/ComparisonPage/Comparison";
 import { useState, createContext, useEffect } from "react";
-import { User } from "./components/LoginPage/User";
+import * as component from "./Imports";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { emptyAll } from "./redux/reduxReducer";
 export const AppContext = createContext();
@@ -33,19 +22,19 @@ function App() {
     const [loginAlert, setLoginAlert] = useState(false);
     const [loginAlertType, setLoginAlertType] = useState("");
     const [currentUser, setCurrentUser] = useState({});
-    const [comparisonArray, setComparisonArray] = useState([])
+    const [comparisonArray, setComparisonArray] = useState([]);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(emptyAll());
-    }, [])
+    }, []);
 
     useEffect(() => {
-        if(Object.keys(currentUser).length === 0){
+        if (Object.keys(currentUser).length === 0) {
             dispatch(emptyAll());
         }
-    }, [currentUser])
-    
+    }, [currentUser]);
+
     return (
         <AppContext.Provider
             value={{
@@ -62,39 +51,64 @@ function App() {
                 currentUser,
                 setCurrentUser,
                 comparisonArray,
-                setComparisonArray
+                setComparisonArray,
             }}
         >
             <BrowserRouter>
                 <ApolloProvider client={client}>
-                    <NavBar />
-                    <FixedNavBar />
+                    <component.NavBar />
+                    <component.FixedNavBar />
                     <Routes>
-                        <Route exact path="/" element={<Home />}></Route>
+                        <Route
+                            exact
+                            path="/"
+                            element={<component.Home />}
+                        ></Route>
                         <Route
                             path="/category/:categoryID"
-                            element={<CategoryPage />}
+                            element={<component.CategoryPage />}
                         ></Route>
                         <Route
                             path="/product/:id"
-                            element={<ProductDetail />}
+                            element={<component.ProductDetail />}
                         ></Route>
                         <Route
                             exact
                             path="/success/true"
-                            element={<Complete />}
+                            element={<component.Complete />}
                         ></Route>
                         <Route
                             exact
                             path="/success/false"
-                            element={<Failure />}
+                            element={<component.Failure />}
                         ></Route>
-                        <Route path="/wishList" element={<WishList />}></Route>
-                        <Route path="/search" element={<Search />}></Route>
-                        <Route path="/registerLogin" element={<User />}></Route>
-                        <Route path="/comparison" element={<Comparison />}></Route>
+                        <Route
+                            path="/wishList"
+                            element={<component.WishList />}
+                        ></Route>
+                        <Route
+                            path="/search"
+                            element={<component.Search />}
+                        ></Route>
+                        <Route
+                            path="/registerLogin"
+                            element={<component.User />}
+                        ></Route>
+                        <Route
+                            path="/comparison"
+                            element={<component.Comparison />}
+                        ></Route>
+                        <Route
+                            path="/faqHelp"
+                            element={<component.FAQ />}
+                        ></Route>
+                        <Route
+                            path="/contact"
+                            element={<component.Contact />}
+                        ></Route>
                     </Routes>
-                    <Footer />
+                    <component.Footer />
+                    <component.ToTopPageButton />
                 </ApolloProvider>
             </BrowserRouter>
         </AppContext.Provider>

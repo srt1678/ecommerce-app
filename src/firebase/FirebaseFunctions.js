@@ -15,7 +15,10 @@ import {
     query,
     where,
 } from "firebase/firestore";
-import { addItemToCartBackEnd, addItemToWishListBackEnd } from './FirebaseStripe';
+import {
+    addItemToCartBackEnd,
+    addItemToWishListBackEnd,
+} from "./FirebaseStripe";
 
 let auth = getAuth(app);
 let googleProvider = new GoogleAuthProvider();
@@ -122,12 +125,19 @@ const getUserWishList = async (user, dispatch) => {
     const q = query(collection(database, `users/${user.user.uid}/wishList`));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(async (doc) => {
-        const {title, oldPrice, newPrice, image1, image2, isNew} = doc.data();
+        const { title, oldPrice, newPrice, image1, image2, isNew } = doc.data();
         addItemToWishListBackEnd(
-            doc.id, title, oldPrice, newPrice, image1, image2, isNew, dispatch
-        )
-    })
-}
+            doc.id,
+            title,
+            oldPrice,
+            newPrice,
+            image1,
+            image2,
+            isNew,
+            dispatch
+        );
+    });
+};
 
 const getUserBasicData = async (user, setCurrentUser) => {
     const q = query(
@@ -190,4 +200,12 @@ export const logOut = async (
     }
 };
 
-
+export const submitContact = async (contactInfo) => {
+    setDoc(doc(database, `contacts/${contactInfo.lastName}`), {
+        firstName: contactInfo.firstName,
+        lastName: contactInfo.lastName,
+        email: contactInfo.email,
+        phoneNum: contactInfo.phoneNumber,
+        message: contactInfo.message,
+    });
+};

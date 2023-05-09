@@ -11,23 +11,48 @@ import { useNavigate } from "react-router-dom";
 import "./Slider.css";
 
 const imageData = [
-    { img: slider1, label: "FAKESHOP COLLECTIONS", labelButton: "WOMEN", category: 'women' },
-    { img: slider2, label: "FAKESHOP COLLECTIONS", labelButton: "MEN", category: 'men' },
-    { img: slider3, label: "NEW SEASONS", labelButton: "MEN", category: 'men' },
-    { img: slider4, label: "NEW SEASONS", labelButton: "WOMEN", category: 'women' },
-    { img: slider5, label: "SPECIAL OFFERS", labelButton: "MEN", category: 'men' },
-    { img: slider6, label: "SPECIAL OFFERS", labelButton: "WOMEN", category: 'women' },
+    {
+        img: slider1,
+        label: "FAKESHOP COLLECTIONS",
+        labelButton: "WOMEN",
+        category: "women",
+    },
+    {
+        img: slider2,
+        label: "FAKESHOP COLLECTIONS",
+        labelButton: "MEN",
+        category: "men",
+    },
+    { img: slider3, label: "NEW SEASONS", labelButton: "MEN", category: "men" },
+    {
+        img: slider4,
+        label: "NEW SEASONS",
+        labelButton: "WOMEN",
+        category: "women",
+    },
+    {
+        img: slider5,
+        label: "SPECIAL OFFERS",
+        labelButton: "MEN",
+        category: "men",
+    },
+    {
+        img: slider6,
+        label: "SPECIAL OFFERS",
+        labelButton: "WOMEN",
+        category: "women",
+    },
 ];
 
 const Slider = () => {
     const navigate = useNavigate();
     const handleNav = (category) => {
-        if(category === 'women'){
-            navigate(`/category/1`)
-        }else{
-            navigate(`/category/2`)
+        if (category === "women") {
+            navigate(`/category/1`);
+        } else {
+            navigate(`/category/2`);
         }
-    }
+    };
     return (
         <>
             <div style={{ position: "relative" }}>
@@ -54,7 +79,9 @@ const Slider = () => {
                                         <Button
                                             className="carousel_button mt-2"
                                             variant="outline-light"
-                                            onClick={() => handleNav(singleImage.category)}
+                                            onClick={() =>
+                                                handleNav(singleImage.category)
+                                            }
                                         >
                                             SHOP {singleImage.labelButton}'S
                                         </Button>

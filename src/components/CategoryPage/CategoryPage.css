@@ -1,18 +1,18 @@
 .left {
-    margin-left: 4rem;
+    margin-left: 6rem;
 }
 .filterItem {
     margin-bottom: 2rem;
 }
-.inputItem > label{
+.inputItem > label {
     margin-bottom: 10px;
     padding-left: 0.5rem;
 }
-.inputItem > span{
+.inputItem > span {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
-.slider_image{
+.slider_image {
     width: 100%;
     height: 30rem;
     object-fit: cover;
@@ -21,28 +21,28 @@
     padding-right: 0.5rem;
 }
 @media screen and (max-width: 1400px) {
-    .left{
+    .left {
         display: flex;
         margin-left: 1rem;
         justify-content: space-evenly;
     }
 }
 @media screen and (max-width: 778px) {
-    .left{
+    .left {
         display: flex;
         flex-direction: column;
     }
-    .filterItem{
+    .filterItem {
         display: flex;
         justify-content: left;
         flex-wrap: wrap;
     }
-    .inputItem{
+    .inputItem {
         display: flex;
         margin-left: 1rem;
         align-items: center;
     }
-    .inputItem > label{
+    .inputItem > label {
         margin-bottom: 0px;
         padding-left: 0.5rem;
     }

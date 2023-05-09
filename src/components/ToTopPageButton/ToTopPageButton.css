@@ -1,0 +1,23 @@
+.topButton {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 1rem;
+    right: 1rem;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 1.5rem;
+    background-color: rgb(148, 148, 148, 0.4);
+    transition: 0.2s ease-in-out;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+.topButton:hover {
+    background-color: rgb(66, 66, 66);
+}
+.topIcon {
+    background-color: transparent;
+    color: white;
+    font-size: 2rem;
+}

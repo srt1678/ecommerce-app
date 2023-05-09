@@ -2,43 +2,72 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import footerImg from '../img/paymentLogo.png'
-import './Footer.css'
+import footerImg from "../img/paymentLogo.png";
+import "./Footer.css";
 import { useNavigate } from "react-router-dom";
 
 export const Footer = () => {
     const navigate = useNavigate();
 
     const handleNav = (categoryNum) => {
-        navigate(`/category/${categoryNum}`)
-    }
+        if (categoryNum <= 4) {
+            navigate(`/category/${categoryNum}`);
+        } else if (categoryNum === 5) {
+            navigate(`/faqHelp`);
+        } else if(categoryNum === 6){
+            navigate(`/contact`)
+        }
+    };
 
     return (
-        <div className='footer_div_container'>
+        <div className="footer_div_container">
             <Container className="footer_container">
                 <Row>
-                    <Col xxl={3} sm={6} className='mb-2'>
+                    <Col xxl={3} sm={6} className="mb-2">
                         <div>
                             <span className="categories_span_title mb-1">
                                 Categories
                             </span>
-                            <span className="categories_span mb-1" onClick={() => handleNav(1)}>Women</span>
-                            <span className="categories_span mb-1" onClick={() => handleNav(2)}>Men</span>
-                            <span className="categories_span mb-1" onClick={() => handleNav(3)}>
+                            <span
+                                className="categories_span mb-1"
+                                onClick={() => handleNav(1)}
+                            >
+                                Women
+                            </span>
+                            <span
+                                className="categories_span mb-1"
+                                onClick={() => handleNav(2)}
+                            >
+                                Men
+                            </span>
+                            <span
+                                className="categories_span mb-1"
+                                onClick={() => handleNav(3)}
+                            >
                                 Shoes
                             </span>
-                            <span className="categories_span mb-1" onClick={() => handleNav(4)}>
+                            <span
+                                className="categories_span mb-1"
+                                onClick={() => handleNav(4)}
+                            >
                                 Accessories
                             </span>
                         </div>
                     </Col>
-                    <Col xxl={3} sm={6} className='mb-2'>
+                    <Col xxl={3} sm={6} className="mb-2">
                         <div>
                             <span className="categories_span_title mb-1">
                                 Links
                             </span>
-                            <span className="categories_span mb-1">FAQ</span>
-                            <span className="categories_span mb-1">Pages</span>
+                            <span
+                                className="categories_span mb-1"
+                                onClick={() => handleNav(5)}
+                            >
+                                FAQ
+                            </span>
+                            <span className="categories_span mb-1" onClick={() => handleNav(6)}>
+                                Contact Us
+                            </span>
                             <span className="categories_span mb-1">
                                 Stories
                             </span>
@@ -47,7 +76,7 @@ export const Footer = () => {
                             </span>
                         </div>
                     </Col>
-                    <Col xxl={3} className='mb-2'>
+                    <Col xxl={3} className="mb-2">
                         <div>
                             <span className="categories_span_title mb-1">
                                 About
@@ -60,10 +89,10 @@ export const Footer = () => {
                             </p>
                         </div>
                     </Col>
-                    <Col xxl={3} className='mb-2'>
+                    <Col xxl={3} className="mb-2">
                         <div>
                             <span className="categories_span_title mb-1">
-                                Contact
+                                Investors
                             </span>
                             <p className="about_para">
                                 Lorem Ipsum has been the industry's standard
@@ -74,10 +103,15 @@ export const Footer = () => {
                         </div>
                     </Col>
                 </Row>
-                <Row style={{alignItems: 'center'}}>
-                    <Col className='categories_span'>2023 FAKESHOP | Developed by Steve C.</Col>
+                <Row style={{ alignItems: "center" }}>
+                    <Col className="categories_span">
+                        2023 FAKESHOP | Developed by Steve C.
+                    </Col>
                     <Col>
-                        <img className='footer_payment_logos' src={footerImg}></img>
+                        <img
+                            className="footer_payment_logos"
+                            src={footerImg}
+                        ></img>
                     </Col>
                 </Row>
             </Container>

@@ -1,0 +1,13 @@
+.accordion-button{
+    background-color: rgb(221, 221, 217);
+}
+.nav.nav-pills .nav-link.active {
+    background-color: rgb(221, 221, 217);
+}
+.accordion-button:focus{
+    background-color: rgb(185, 185, 184);
+    box-shadow: none;
+}
+.accordion-button:not(.collapsed) {
+    color: #212529;
+  }
