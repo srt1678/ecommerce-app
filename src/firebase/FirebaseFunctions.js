@@ -159,7 +159,8 @@ const getUserBasicData = async (user, setCurrentUser) => {
 export const signInWithGoogle = async (
     setCurrentUser,
     setLoginAlert,
-    setLoginAlertType
+    setLoginAlertType,
+    dispatch
 ) => {
     try {
         const user = await signInWithPopup(auth, googleProvider);
@@ -170,12 +171,9 @@ export const signInWithGoogle = async (
                 lastName: nameArray[nameArray.length - 1],
                 email: user.user.email,
             });
-            setCurrentUser({
-                firstName: nameArray[0],
-                lastName: nameArray[nameArray.length - 1],
-                email: user.user.email,
-                uid: user.user.uid,
-            });
+            getUserBasicData(user.user, setCurrentUser);
+            getUserCartList(user, dispatch);
+            getUserWishList(user, dispatch);
         } catch (err) {
             setLoginAlert(true);
             setLoginAlertType(err.message);

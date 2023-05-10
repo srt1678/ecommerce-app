@@ -73,7 +73,8 @@ export const UserEnterInfoBox = () => {
                             signInWithGoogle(
                                 setCurrentUser,
                                 setLoginAlert,
-                                setLoginAlertType
+                                setLoginAlertType,
+                                dispatch
                             )
                         }
                         style={{ gap: "1rem" }}
