@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./CategoriesBoxes.css";
-import { Button } from "react-bootstrap";
 import category1 from "../img/category1.jpg";
 import category2 from "../img/category2.jpg";
 import category3 from "../img/category3.jpg";
@@ -17,7 +16,7 @@ const Categories = () => {
     const handleButton = (categoryNum) => {
         navigate(`/category/${categoryNum}`);
     };
-    
+
     return (
         <div className="categories mx-5 pb-3">
             <Container fluid>
@@ -31,13 +30,13 @@ const Categories = () => {
                                     alt=""
                                 ></img>
                                 <div className="category_button_container">
-                                    <Button
+                                    <button
                                         className="category_button"
                                         variant="outline-light"
                                         onClick={() => handleButton(1)}
                                     >
                                         WOMEN
-                                    </Button>
+                                    </button>
                                 </div>
                             </div>
                         </Row>
@@ -49,13 +48,13 @@ const Categories = () => {
                                     alt=""
                                 ></img>
                                 <div className="category_button_container">
-                                    <Button
+                                    <button
                                         className="category_button"
                                         variant="outline-light"
                                         onClick={() => handleButton(3)}
                                     >
                                         SHOES
-                                    </Button>
+                                    </button>
                                 </div>
                             </div>
                         </Row>
@@ -69,13 +68,13 @@ const Categories = () => {
                                     alt=""
                                 ></img>
                                 <div className="category_button_container">
-                                    <Button
+                                    <button
                                         className="category_button"
                                         variant="outline-light"
                                         onClick={() => handleButton(1)}
                                     >
                                         SALES
-                                    </Button>
+                                    </button>
                                 </div>
                             </div>
                         </Row>
@@ -89,13 +88,13 @@ const Categories = () => {
                                     alt=""
                                 ></img>
                                 <div className="category_button_container">
-                                    <Button
+                                    <button
                                         className="category_button"
                                         variant="outline-light"
                                         onClick={() => handleButton(2)}
                                     >
                                         MEN
-                                    </Button>
+                                    </button>
                                 </div>
                             </Col>
                             <Col sm className="categories_box5 mb-2 px-0">
@@ -105,13 +104,13 @@ const Categories = () => {
                                     alt=""
                                 ></img>
                                 <div className="category_button_container">
-                                    <Button
+                                    <button
                                         className="category_button"
                                         variant="outline-light"
                                         onClick={() => handleButton(4)}
                                     >
                                         ACCESSORIES
-                                    </Button>
+                                    </button>
                                 </div>
                             </Col>
                         </Row>
@@ -122,13 +121,13 @@ const Categories = () => {
                                 alt=""
                             ></img>
                             <div className="category_button_container">
-                                <Button
+                                <button
                                     className="category_button"
                                     variant="outline-light"
                                     onClick={() => handleButton(2)}
                                 >
                                     NEW SEASONS
-                                </Button>
+                                </button>
                             </div>
                         </Row>
                     </Col>

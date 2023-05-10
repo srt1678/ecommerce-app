@@ -41,10 +41,19 @@
     font-size: 2.5vh;
     font-weight: 500;
     width: 10rem;
+    background-color: transparent;
+    border: solid 1px white;
+    border-radius: 8px;
+    transition: 0.2s ease-in-out;
+}
+.category_button:hover{
+    background-color: white;
+    color: black;
 }
 .categories_box5 > .category_button_container > .category_button,
 .categories_box6 > .category_button_container > .category_button {
-    width: 15rem;
+    width: 11rem;
+    font-size: 1.5rem;
 }
 
 @media screen and (max-width: 578px) {
