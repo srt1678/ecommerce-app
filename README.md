@@ -10,8 +10,8 @@
 [Google Drive Link](https://drive.google.com/drive/folders/1uEmvqDLMvZ_qovpSFyGliW93hc6m6XOl?usp=sharing)
 
 ### ScreenShot
-![Alt text](/src/components/img/ScreenShot1.png?raw=true "ScreenShot1")
-![Alt text](/src/components/img/ScreenShot5.png?raw=true "ScreenShot2")
-![Alt text](/src/components/img/ScreenShot2.png?raw=true "ScreenShot3")
-![Alt text](/src/components/img/ScreenShot3.png?raw=true "ScreenShot4")
-![Alt text](/src/components/img/ScreenShot4.png?raw=true "ScreenShot5")
+![Alt text](/src/components/img/Screenshot1.png?raw=true "ScreenShot1")
+![Alt text](/src/components/img/Screenshot5.png?raw=true "ScreenShot2")
+![Alt text](/src/components/img/Screenshot2.png?raw=true "ScreenShot3")
+![Alt text](/src/components/img/Screenshot3.png?raw=true "ScreenShot4")
+![Alt text](/src/components/img/Screenshot4.png?raw=true "ScreenShot5")
